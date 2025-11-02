@@ -11,7 +11,8 @@
       v-if="load"
     ></v-progress-linear>
     <div class="grid">
-      <div v-for="pro in this.searchrsult" :key="pro.id" class="product-card">
+      {{searchrsult}}
+      <div v-for="pro in searchrsult" :key="pro.id" class="product-card">
         <div id="parantimg1" class="img-wrapper">
           <v-btn
             @click="this.Emitter.emit('dilog', pro)"
@@ -157,7 +158,7 @@ export default {
     window.scroll(0, 0);
     this.load = true;
     setTimeout(() => {
-      this.getSearchProduct(this.$route.params.catigory);
+      this.getSearchProduct(this.$route.params.products);
       this.load = false;
     }, 500);
   },
@@ -165,7 +166,7 @@ export default {
     $route() {
       this.load = true;
       setTimeout(() => {
-        this.getSearchProduct(this.$route.params.catigory);
+        this.getSearchProduct(this.$route.params.products);
         this.load = false;
       }, 500);
     },

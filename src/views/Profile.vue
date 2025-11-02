@@ -190,6 +190,7 @@ async function logout() {
     );
   } catch {}
   localStorage.removeItem("token");
+  localStorage.removeItem("user_role");
   router.push({ name: "login" });
 }
 

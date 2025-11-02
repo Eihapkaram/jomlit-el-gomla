@@ -126,7 +126,7 @@
 <script>
 import axios from "axios";
 import { mystore } from "@/store";
-import { mapState } from "pinia";
+import { mapState, mapActions } from "pinia";
 
 export default {
   data() {
@@ -143,6 +143,7 @@ export default {
     ...mapState(mystore, ["domin"]),
   },
   methods: {
+    ...mapActions(mystore,["login"]),
     funlogin() {
       axios
         .post(`${this.domin}`, {
@@ -150,9 +151,8 @@ export default {
           password: this.password,
         })
         .then((res) => {
-          localStorage.setItem("token", res.data.token);
-
-          this.$router.push("/home");
+           this.login(res.data.token,"customer")
+          this.$router.push("/");
           console.log(res);
         })
         .catch((err) => console.log(err));
@@ -166,8 +166,7 @@ export default {
           password: this.password,
         })
         .then((res) => {
-          localStorage.setItem("token", res.data.token);
-          localStorage.setItem("user_role", "customer");
+            this.login(res.data.token,"customer")
           this.$router.push("/");
           console.log(res);
         })

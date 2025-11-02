@@ -106,7 +106,7 @@
           <v-btn
             type="submit"
             color="black"
-            class="text-white px-10 py-5 square-btn"
+            class="text-white square-btn"
             :disabled="!latitude || !longitude"
           >
             تسجيل الدخول
@@ -223,7 +223,7 @@
           <v-btn
             type="submit"
             color="black"
-            class="text-white px-10 py-5 square-btn"
+            class="text-white square-btn"
             :disabled="!latitude || !longitude"
             >تسجيل حساب</v-btn
           >
@@ -257,7 +257,6 @@
 import axios from "axios";
 import { mystore } from "@/store";
 import { mapState } from "pinia";
-import { error } from "jquery";
 
 export default {
   data() {
@@ -284,7 +283,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(mystore, ["domin"]),
+    ...mapState(mystore, ["domin", "token"]),
   },
   methods: {
     onFileChange2(e) {

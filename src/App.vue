@@ -82,9 +82,7 @@ nav {
 import LayOut from "./components/LayOut.vue";
 import QiuckView from "./components/Home/QiuckView.vue";
 import SinVeiw from "./components/Home/SinVeiw.vue";
-import { LocalNotifications } from "@capacitor/local-notifications";
-import { Geolocation } from "@capacitor/geolocation";
-import { PushNotifications } from "@capacitor/push-notifications";
+
 import { mystore } from "@/store";
 import { mapActions, mapState } from "pinia";
 import { useHead } from "@vueuse/head";

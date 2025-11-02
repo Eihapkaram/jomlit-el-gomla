@@ -50,16 +50,16 @@
           />
 
           <!-- ✅ الوصف القابل للتمرير -->
-          <div class="desc">
+           <div class="desc">
             {{ pro.description }}
           </div>
 
           <div class="details">
-            🧃 <strong>الكرتونة:</strong> تحتوي على
-            <strong>{{ pro.url }}</strong> علبة
+            🧃 <strong> {{ pro.Counttype }}:</strong> تحتوي على
+            <strong>{{ pro.inCount }}</strong> {{ pro.inCounttype }}
             <br />
-            💰 <strong>سعر العلبة:</strong>
-            <span>{{ Math.floor(pro.price / pro.url) }}</span> ج.م
+            💰 <strong>سعر {{ pro.inCounttype }}:</strong>
+            <span>{{ Math.floor(pro.price / pro.inCount) }}</span> ج.م
           </div>
 
           <div>

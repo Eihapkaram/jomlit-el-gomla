@@ -765,7 +765,7 @@ export default {
       drawermenu: false,
       drawerSearch: false,
       quant: 1,
-      token: localStorage.getItem("token") || null,
+
       nums: [],
       total: [],
       localitem: "",
@@ -891,6 +891,7 @@ export default {
       "page",
       "userRole",
       "userinfo",
+      "token",
     ]),
     ...mapState(CartStore1, ["CartProduct"]),
     ...mapState(ListsStore1, ["list"]),
@@ -903,6 +904,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions(mystore, ["logoutin"]),
     async plusormuns() {
       await this.update();
     },
@@ -938,11 +940,10 @@ export default {
       localStorage.setItem("todo", JSON.stringify(this.CartProduct));
     },
     async fetchUser() {
-      const token = localStorage.getItem("token");
       if (!this.token) return;
       try {
         const res = await axios.get(`${this.domin}user/info`, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${this.token}` },
         });
         this.user = res.data.user || res.data;
         console.log(user.value);
@@ -953,7 +954,7 @@ export default {
     handleAuth() {
       if (this.token) {
         // تسجيل خروج
-        localStorage.removeItem("token");
+       this.logoutin()
         this.token = false;
         this.$router.push({ name: "login" });
       } else {
@@ -962,23 +963,18 @@ export default {
       }
     },
     async logout() {
-      const token = localStorage.getItem("token");
-
       try {
         const res = await axios.post(
           `${this.domin}logout`, // عنوان الطلب
           {}, // جسم الطلب (فارغ هنا)
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${this.token}`,
             },
           }
         );
 
-        // إزالة التوكن بعد نجاح تسجيل الخروج
-        if (localStorage.getItem("token")) {
-          localStorage.removeItem("token");
-        }
+       this.logoutin();
 
         console.log("تم تسجيل خروج المستخدم:", res.data);
       } catch (err) {
@@ -1000,8 +996,9 @@ export default {
       this.drawermenu = !this.drawermenu;
     },
     Search(data) {
-      this.$router.push({ name: "searchpage" });
+      this.$router.push({ name: "searchpage" ,params:{products:data}});
       this.getSearchProduct(data);
+     
     },
     delcart() {
       this.CartProduct.splice(0, 1);
@@ -1038,8 +1035,10 @@ export default {
     await this.GetCart();
     await this.getcatigories();
     // تحديث المستخدم عند بداية التحميل
-    this.fetchUser();
-
+   
+ 
+      await  this.fetchUser();
+    
     // مراقبة تغييرات token من تبويبات أخرى
     window.addEventListener("storage", (event) => {
       if (event.key === "token") {

@@ -119,7 +119,9 @@
                     </div>
                     <div class="info">
                       <span class="category-name">{{ item.titel }}</span>
-                      <span class="category-price">{{ item.price }} ج.م</span>
+                      <span class="category-price"
+                        >{{ Math.floor(item.price) }} ج.م</span
+                      >
                       <v-btn
                         class="category-price"
                         @click="(item.quantity = 1), funvaled(item)"

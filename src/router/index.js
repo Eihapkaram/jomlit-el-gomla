@@ -153,7 +153,7 @@ const routes = [
     meta: { title: "عرض واضافه العملاء | جُمـلـة الجُـمـلـة" },
   },
   {
-    path: "/shearch",
+    path: "/shearch/:products",
     name: "searchpage",
     component: SearchPage,
     meta: { title: "بحث المنتجات | جُمـلـة الجُـمـلـة" },

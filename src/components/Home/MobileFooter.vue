@@ -17,18 +17,20 @@
       <span>الرئيسية</span>
     </v-btn>
 
-    <!-- 👤 الملف الشخصي -->
+    <!-- 👤 الملف الشخصي / تسجيل الدخول -->
     <v-btn
       variant="text"
       class="footer-btn"
       :class="{ active: isProfileActive }"
       @click="goToAccount"
     >
-      <v-icon size="26" color="darkgold">mdi-account-outline</v-icon>
-      <span>{{ isLoggedIn ? "ملفي الشخصي" : "تسجيل الدخول" }}</span>
+      <v-icon size="26" color="darkgold">
+        mdi-account-outline
+      </v-icon>
+      <span>{{ isLoggedIn ? userLabel : "تسجيل الدخول" }}</span>
     </v-btn>
 
-    <!-- 💳 مشترياتي -->
+    <!-- 💳 مشترياتي (للعميل فقط) -->
     <v-btn
       v-if="store.userRole === 'customer'"
       variant="text"
@@ -73,6 +75,17 @@
       </template>
       <span>إشعاراتي</span>
     </v-btn>
+
+    <!-- 🚪 تسجيل الخروج -->
+    <v-btn
+      v-if="isLoggedIn"
+      variant="text"
+      class="footer-btn"
+      @click="logout"
+    >
+      <v-icon size="26" color="darkgold">mdi-logout</v-icon>
+      <span>خروج</span>
+    </v-btn>
   </v-bottom-navigation>
 </template>
 
@@ -86,38 +99,54 @@ const router = useRouter();
 const route = useRoute();
 
 // ✅ حالة تسجيل الدخول
-const isLoggedIn = computed(() => !!localStorage.getItem("token"));
+const isLoggedIn = computed(() => !!store.token);
 
 // ✅ عدد الإشعارات
 const NotyfCount = computed(() => store.NotyfCount || 0);
 
+// ✅ النص تحت أيقونة الملف الشخصي
+const userLabel = computed(() => {
+  switch (store.userRole) {
+    case "admin":
+      return "لوحة التحكم";
+    case "seller":
+      return "ملف البائع";
+    case "customer":
+      return "ملفي الشخصي";
+    default:
+      return "ملفي الشخصي";
+  }
+});
+
 // ✅ تحديد الزر النشط
 const isProfileActive = computed(() => {
   if (!isLoggedIn.value) return route.name === "login";
-
-  // لو المستخدم أدمن أو عميل => يروح صفحة profile
-  if (["admin", "customer"].includes(store.userRole)) {
+  if (["admin", "customer"].includes(store.userRole))
     return route.name === "profile";
-  }
-
-  // لو بائع => SellerProfile
-  return route.name === "SellerProfile";
+  if (store.userRole === "seller") return route.name === "SellerProfile";
+  return false;
 });
 
-/// ✅ عند الضغط على الزر
+// ✅ الانتقال للملف أو تسجيل الدخول
 function goToAccount() {
   if (!isLoggedIn.value) {
-    // المستخدم غير مسجل دخول
     router.push({ name: "login" });
   } else {
-    // المستخدم مسجل دخول
     if (store.userRole === "seller") {
       router.push({ name: "SellerProfile" });
     } else if (store.userRole === "admin") {
-      router.push({ name: "dashboard" }); // ✅ تحويل الأدمن إلى لوحة التحكم
+      router.push({ name: "dashboard" });
     } else {
-      router.push({ name: "Profile" }); // المستخدم العادي
+      router.push({ name: "Profile" });
     }
+  }
+}
+
+// ✅ تسجيل الخروج
+function logout() {
+  if (confirm("هل تريد تسجيل الخروج؟")) {
+    store.logoutin();
+    router.push({ name: "home" });
   }
 }
 </script>
@@ -157,5 +186,3 @@ function goToAccount() {
   }
 }
 </style>
-``` هل تحب أضيف كمان حالة لو **الـ admin** يروح **dashboard** بدل profile (لو
-عندك لوحة تحكم للأدمن)؟
