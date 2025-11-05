@@ -119,7 +119,20 @@
               حسابي الشخصي
             </div>
           </v-list-item>
-
+          <!-- لوحة التحكم-->
+          <v-list-item
+            v-if="userRole == 'admin'"
+            id="link0"
+            hover
+            @click="$router.push({ name: 'dashboard' })"
+          >
+            <div style="display: flex; align-items: center; color: #333">
+              <v-icon color="#1976d2" class="me-2"
+                >mdi-microsoft-xbox-controller-menu</v-icon
+              >
+              لوحة التحكم
+            </div>
+          </v-list-item>
           <!-- تسجيل الدخول / الخروج -->
           <v-list-item id="link0" hover @click="handleAuth">
             <div
@@ -285,6 +298,20 @@
           <div style="display: flex; align-items: center; color: #333">
             <v-icon color="#1976d2" class="me-2">mdi-heart-outline</v-icon>
             قائمتي المفضلة
+          </div>
+        </v-list-item>
+        <!-- لوحة التحكم-->
+        <v-list-item
+          v-if="userRole == 'admin'"
+          id="link0"
+          hover
+          @click="$router.push({ name: 'dashboard' })"
+        >
+          <div style="display: flex; align-items: center; color: #333">
+            <v-icon color="#1976d2" class="me-2"
+              >mdi-microsoft-xbox-controller-menu</v-icon
+            >
+            لوحة التحكم
           </div>
         </v-list-item>
         <!-- اداره العملاء -->
@@ -954,7 +981,7 @@ export default {
     handleAuth() {
       if (this.token) {
         // تسجيل خروج
-       this.logoutin()
+        this.logoutin();
         this.token = false;
         this.$router.push({ name: "login" });
       } else {
@@ -974,7 +1001,7 @@ export default {
           }
         );
 
-       this.logoutin();
+        this.logoutin();
 
         console.log("تم تسجيل خروج المستخدم:", res.data);
       } catch (err) {
@@ -996,9 +1023,8 @@ export default {
       this.drawermenu = !this.drawermenu;
     },
     Search(data) {
-      this.$router.push({ name: "searchpage" ,params:{products:data}});
+      this.$router.push({ name: "searchpage", params: { products: data } });
       this.getSearchProduct(data);
-     
     },
     delcart() {
       this.CartProduct.splice(0, 1);
@@ -1035,10 +1061,9 @@ export default {
     await this.GetCart();
     await this.getcatigories();
     // تحديث المستخدم عند بداية التحميل
-   
- 
-      await  this.fetchUser();
-    
+
+    await this.fetchUser();
+
     // مراقبة تغييرات token من تبويبات أخرى
     window.addEventListener("storage", (event) => {
       if (event.key === "token") {

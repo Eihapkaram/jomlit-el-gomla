@@ -189,9 +189,8 @@ async function logout() {
       { headers: { Authorization: `Bearer ${token}` } }
     );
   } catch {}
-  localStorage.removeItem("token");
-  localStorage.removeItem("user_role");
-  router.push({ name: "login" });
+  store.logoutin();
+  router.push({ name: "home" });
 }
 
 // ✅ تنسيق التاريخ

@@ -11,7 +11,6 @@
       v-if="load"
     ></v-progress-linear>
     <div class="grid">
-      {{searchrsult}}
       <div v-for="pro in searchrsult" :key="pro.id" class="product-card">
         <div id="parantimg1" class="img-wrapper">
           <v-btn
@@ -430,7 +429,7 @@ export default {
 .love-btn {
   position: absolute;
   top: -70px;
-  left: 90px;
+  left: 85px;
   background: rgba(255, 255, 255, 0.85);
   border: none;
   border-radius: 10px;
@@ -776,7 +775,7 @@ export default {
   .love-btn {
     position: absolute;
     top: -70px;
-    left: 120px;
+    left: 110px;
     background: rgba(255, 255, 255, 0.85);
     border: none;
     border-radius: 10px;

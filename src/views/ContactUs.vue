@@ -6,7 +6,9 @@
     <v-card class="pa-6 mx-auto" max-width="500">
       <p><strong>العنوان:</strong> {{ settings.location }}</p>
       <p><strong>الهاتف:</strong> {{ settings.hotphone }}</p>
-      <p><strong>البريد الإلكتروني:</strong> {{ settings.email }}</p>
+      <p>
+        <span>✉️ {{ settings.email }}: <strong>البريد الإلكتروني</strong></span>
+      </p>
     </v-card>
 
     <v-divider class="my-6"></v-divider>

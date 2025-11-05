@@ -24,9 +24,7 @@
       :class="{ active: isProfileActive }"
       @click="goToAccount"
     >
-      <v-icon size="26" color="darkgold">
-        mdi-account-outline
-      </v-icon>
+      <v-icon size="26" color="darkgold"> mdi-account-outline </v-icon>
       <span>{{ isLoggedIn ? userLabel : "تسجيل الدخول" }}</span>
     </v-btn>
 
@@ -74,17 +72,6 @@
         <v-icon size="26" color="darkgold">mdi-bell-outline</v-icon>
       </template>
       <span>إشعاراتي</span>
-    </v-btn>
-
-    <!-- 🚪 تسجيل الخروج -->
-    <v-btn
-      v-if="isLoggedIn"
-      variant="text"
-      class="footer-btn"
-      @click="logout"
-    >
-      <v-icon size="26" color="darkgold">mdi-logout</v-icon>
-      <span>خروج</span>
     </v-btn>
   </v-bottom-navigation>
 </template>

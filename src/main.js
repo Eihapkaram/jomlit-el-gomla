@@ -36,50 +36,6 @@ const swiper = new Swiper(".swiper", {
   modules: [Navigation, Pagination, Scrollbar],
 });
 
-import { PushNotifications } from "@capacitor/push-notifications";
-
-const registerPush = async () => {
-  try {
-    let permStatus = await PushNotifications.checkPermissions();
-    if (permStatus.receive === "prompt") {
-      permStatus = await PushNotifications.requestPermissions();
-    }
-
-    if (permStatus.receive !== "granted") {
-      console.warn("Permission not granted for push notifications");
-      return;
-    }
-
-    await PushNotifications.register();
-
-    PushNotifications.addListener("registration", (token) => {
-      console.log("Push registration success, token:", token.value);
-    });
-
-    PushNotifications.addListener("registrationError", (error) => {
-      console.error("Push registration error:", error);
-    });
-
-    PushNotifications.addListener(
-      "pushNotificationReceived",
-      (notification) => {
-        console.log("Notification received:", notification);
-      }
-    );
-
-    PushNotifications.addListener(
-      "pushNotificationActionPerformed",
-      (notification) => {
-        console.log("Notification action performed:", notification);
-      }
-    );
-  } catch (error) {
-    console.error("Error initializing push notifications:", error);
-  }
-};
-
-document.addEventListener("deviceready", registerPush, false);
-
 createApp(App)
   .use(head)
   .use(store)

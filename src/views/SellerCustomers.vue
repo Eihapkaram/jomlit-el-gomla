@@ -343,8 +343,55 @@ export default {
         this.loading = false;
       }
     },
-
     async getCustomerLocation() {
+      try {
+        // ✅ طلب صلاحيات الموقع على أندرويد/آيفون (Cordova/Capacitor)
+        if (window.cordova && cordova.plugins && cordova.plugins.diagnostic) {
+          await new Promise((resolve, reject) => {
+            cordova.plugins.diagnostic.requestLocationAuthorization(
+              (status) => {
+                if (
+                  status ===
+                    cordova.plugins.diagnostic.permissionStatus.GRANTED ||
+                  status ===
+                    cordova.plugins.diagnostic.permissionStatus
+                      .GRANTED_WHEN_IN_USE
+                ) {
+                  resolve();
+                } else {
+                  reject("لم يتم منح صلاحية الموقع");
+                }
+              },
+              (err) => reject(err)
+            );
+          });
+        }
+
+        // 🔍 الحصول على الموقع
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            (pos) => {
+              this.latitude = pos.coords.latitude;
+              this.longitude = pos.coords.longitude;
+              this.locationGranted = true;
+              this.showAlert("success", "تم تحديد موقع العميل بنجاح ✅");
+            },
+            (err) => {
+              this.showAlert("error", "تعذر تحديد الموقع، يرجى السماح للموقع");
+              this.locationGranted = false;
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+          );
+        } else {
+          this.showAlert("error", "المتصفح لا يدعم تحديد الموقع");
+        }
+      } catch (err) {
+        console.error(err);
+        this.showAlert("error", err || "خطأ في طلب صلاحيات الموقع");
+      }
+    },
+
+    async getCustomerLocationL() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (pos) => {

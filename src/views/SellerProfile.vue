@@ -358,7 +358,7 @@ export default {
       "Userinfo",
       "sellerProfits",
       "sellerPayRequst",
-      "logoutin"
+      "logoutin",
     ]),
 
     updateStats() {
@@ -453,8 +453,8 @@ export default {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-       this.logoutin()
-        this.$router.push({ name: "login" });
+        this.logoutin();
+        this.$router.push({ name: "home" });
       } catch (err) {
         console.error(err.response?.data || err);
       }

@@ -28,7 +28,7 @@
                 <img
                   id="img"
                   height="100px"
-                  width="100px"
+                  width="fit-content"
                   :src="domin + item.img"
                 />
               </td>
@@ -563,7 +563,7 @@ export default {
     direction: rtl;
     top: 20px;
     width: 80%;
-    left: -20px;
+    left: -35px;
     position: relative;
   }
   #detilsechuck {

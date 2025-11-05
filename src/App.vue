@@ -1,6 +1,6 @@
 <template>
   <v-progress-linear indeterminate v-if="load"></v-progress-linear>
-  <lay-out style="top: -140px; position: relative" :my="this.catigory0"
+  <lay-out style="top: 10px; position: relative" :my="this.catigory0"
     ><router-view
   /></lay-out>
   <QiuckView />

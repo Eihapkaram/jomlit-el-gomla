@@ -24,7 +24,6 @@
 
       <!-- الخطوة 2: عرض السؤال الأمني -->
       <form v-else-if="step === 2" @submit.prevent="resetPassword">
-        {{ this.security_question }}
         <v-text-field
           v-model="security_answer"
           :label="security_question"
@@ -50,11 +49,7 @@
         ></v-text-field>
 
         <div class="d-flex justify-center mb-4">
-          <v-btn
-            type="submit"
-            color="black"
-            class="text-white px-10 py-5 square-btn"
-          >
+          <v-btn type="submit" color="black" class="text-white square-btn">
             تحديث كلمة المرور
           </v-btn>
         </div>

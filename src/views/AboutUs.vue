@@ -11,4 +11,26 @@
   </v-container>
 </template>
 
-<script setup></script>
+<script>
+import { mapActions, mapState } from "pinia";
+import { mystore } from "@/store";
+export default {
+  data() {
+    return {
+      name: "",
+      email: "",
+      massege: "",
+      phone: "",
+    };
+  },
+  computed: {
+    ...mapState(mystore, ["settings"]),
+  },
+  methods: {
+    ...mapActions(mystore, ["siteinformition", "Addinquiries"]),
+  },
+  mounted() {
+    this.siteinformition();
+  },
+};
+</script>

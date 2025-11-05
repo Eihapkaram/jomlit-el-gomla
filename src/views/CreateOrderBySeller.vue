@@ -17,7 +17,7 @@
               <img
                 id="img"
                 height="100px"
-                width="100px"
+                width="fit-content"
                 :src="domin + item.img"
               />
             </td>

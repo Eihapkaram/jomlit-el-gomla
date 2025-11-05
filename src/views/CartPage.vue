@@ -95,7 +95,7 @@
                   <img
                     id="img"
                     height="100px"
-                    width="100px"
+                    width="fit-content"
                     :src="domin + item.img"
                     style="border-radius: 10px; border: 1px solid #ccc"
                   />
@@ -105,18 +105,19 @@
                   lg="7"
                   md="7"
                   sm="7"
-                  style="position: relative; left: 0px; height: 100%"
+                  style="
+                    position: relative;
+                    height: 100%;
+                    display: flex;
+                    flex-flow: column;
+                    align-items: center;
+                  "
                   align-self="center"
                   id="detilseproduct"
                 >
                   <span class="text-h6" style="color: #333">{{
                     item.titel
                   }}</span>
-                  <div class="d-flex flex-row" style="gap: 10px; opacity: 0.7">
-                    <span>العرض: {{}}</span>
-                    <span>الارتفاع: {{}}</span>
-                    <span>العمق: {{}}</span>
-                  </div>
                 </v-col>
               </v-row>
             </td>
@@ -331,6 +332,10 @@ export default {
   #progrees {
     width: 100%;
   }
+  #detilseproduct {
+    position: relative;
+    justify-content: center;
+  }
   #samery {
     position: relative;
     left: 5px;
@@ -341,14 +346,19 @@ export default {
 @media (max-width: 500px) {
   #colditels {
     height: 250px;
-    width: 80%;
+    width: 90%;
     position: relative;
-    left: -50px;
+    left: -30px;
   }
   #img {
     position: relative;
     left: 25px;
     top: 25px;
+    width: fit-content;
+  }
+  #detilseproduct {
+    position: relative;
+    left: 25px;
   }
   #header {
     width: 90%;
@@ -374,6 +384,7 @@ export default {
   }
   #progrees {
     width: 100%;
+    left: -50px;
   }
   #samery {
     position: relative;

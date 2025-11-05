@@ -299,6 +299,37 @@ export default {
       };
     },
     requestLocation() {
+      if (window.cordova && navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.latitude = position.coords.latitude;
+            this.longitude = position.coords.longitude;
+            this.showLocationAlert = false;
+          },
+          (err) => {
+            console.error("خطأ في الحصول على الموقع:", err);
+            this.showLocationAlert = true;
+          },
+          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+      } else if ("geolocation" in navigator) {
+        // fallback للمتصفح
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.latitude = position.coords.latitude;
+            this.longitude = position.coords.longitude;
+            this.showLocationAlert = false;
+          },
+          () => {
+            this.showLocationAlert = true;
+          }
+        );
+      } else {
+        alert("المتصفح لا يدعم خدمة الموقع الجغرافي");
+      }
+    },
+
+    requestLocationL() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
