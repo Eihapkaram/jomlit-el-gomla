@@ -304,7 +304,7 @@ export default {
   inject: ["Emitter"],
   data() {
     return {
-      shipping: 20,
+      shipping: 0,
       total: [],
       itemurl: ["الرئيسية", "السلة", "الدفع"],
       email: "",
