@@ -49,6 +49,7 @@ import AdminSendNotification from "@/components/dashborad/AdminSendNotification.
 import QueriesShow from "@/components/dashborad/QueriesShow.vue";
 import AdminWithdrawRequests from "@/components/dashborad/AdminWithdrawRequests.vue";
 import OffersPage from "@/views/OffersPage.vue";
+import { mystore } from "@/store";
 
 const routes = [
   {
@@ -329,7 +330,8 @@ router.beforeEach((to, from, next) => {
   if (to.path.startsWith("/dashboard")) {
     // هنا نقدر نتحقق من شرط الدخول
     // مثال: لو المستخدم ليس مسجل أو ليس admin
-    const userRole = localStorage.getItem("user_role"); // افترضنا تخزين role
+    const auth = mystore();
+    const userRole = auth.userRole; // افترضنا تخزين role
     if (userRole !== "admin") {
       return next("/"); // منع الدخول وتحويله للصفحة الرئيسية
     }
@@ -337,7 +339,8 @@ router.beforeEach((to, from, next) => {
   if (to.path.startsWith("/Sprofile" && "/checkpageBySeller")) {
     // هنا نقدر نتحقق من شرط الدخول
     // مثال: لو المستخدم ليس مسجل أو ليس admin
-    const userRole = localStorage.getItem("user_role"); // افترضنا تخزين role
+    const auth = mystore();
+    const userRole = auth.userRole; // افترضنا تخزين role
     if (userRole !== "seller") {
       return next("/"); // منع الدخول وتحويله للصفحة الرئيسية
     }
@@ -345,7 +348,8 @@ router.beforeEach((to, from, next) => {
   if (to.path.startsWith("/resetpassword")) {
     // هنا نقدر نتحقق من شرط الدخول
     // مثال: لو المستخدم ليس مسجل أو ليس admin
-    const userRole = localStorage.getItem("user_role"); // افترضنا تخزين role
+    const auth = mystore();
+    const userRole = auth.userRole; // افترضنا تخزين role
     if (userRole === "seller") {
       return next("/"); // منع الدخول وتحويله للصفحة الرئيسية
     }
