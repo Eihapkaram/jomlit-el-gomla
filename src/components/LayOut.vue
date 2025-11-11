@@ -1037,6 +1037,7 @@ export default {
       "getCatigoryDash",
       "Pages",
       "Userinfo",
+      "User"
     ]),
     ...mapActions(CartStore1, [
       "GetCart",
@@ -1056,6 +1057,7 @@ export default {
     await this.getCatigoryDash();
     await this.update();
     await this.Userinfo();
+    await this.User()
     await this.GetCart2();
     await this.Pages();
     await this.GetCart();
