@@ -17,7 +17,7 @@ export const mystore = defineStore("mystore", {
     Notyf: "",
     NotyfCount: "",
     user: "",
-    userRole: localStorage.getItem("user_role"),
+    userRole: "",
     token: localStorage.getItem("token") || null,
     userinfo: "",
     Reviwes: "",
@@ -42,18 +42,16 @@ export const mystore = defineStore("mystore", {
   }),
 
   actions: {
-   async login(token, role) {
+    async login(token, role) {
       this.token = token;
       this.userRole = role;
       localStorage.setItem("token", token);
-      localStorage.setItem("user_role", role);
     },
-   async logoutin() {
+    async logoutin() {
       this.token = null;
       this.userRole = null;
-      localStorage.removeItem("user_role");
+
       localStorage.removeItem("token");
-     
     },
     async getruslt(item) {
       this.result.push(item);
@@ -355,7 +353,6 @@ export const mystore = defineStore("mystore", {
           headers: { Authorization: `Bearer ${token}` },
         });
         this.userRole = res.data.user.role;
-        localStorage.setItem("user_role", this.userRole);
       } catch (err) {
         console.error(err.response?.data || err);
       }
@@ -391,7 +388,9 @@ export const mystore = defineStore("mystore", {
     },
 
     async getSearchProduct(query) {
-      const res = await fetch(`${this.domin}search/cate?filter[titel]=${query}`);
+      const res = await fetch(
+        `${this.domin}search/cate?filter[titel]=${query}`
+      );
       const data = await res.json();
       this.searchrsult = data.result;
     },
