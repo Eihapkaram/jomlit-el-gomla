@@ -380,7 +380,7 @@ export default {
         this.massage = "done register";
         this.snackbar = true;
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("user_role", this.role);
+        
         this.$router.push("/");
       } catch (err) {
         console.error(err.response?.data || err);
@@ -423,7 +423,6 @@ export default {
         this.massage = "done register";
         this.snackbar = true;
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("user_role", this.role);
         this.$router.push("/");
       } catch (err) {
         console.error(err.response?.data || err);
