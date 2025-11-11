@@ -87,7 +87,6 @@ export const mystore = defineStore("mystore", {
           },
           { headers: { Authorization: `Bearer ${token}` } }
         );
-        console.log("تم إضافة الاستفسار:", res.data);
       } catch (err) {
         console.error(err.response?.data || err);
       }
@@ -317,7 +316,6 @@ export const mystore = defineStore("mystore", {
       const res = await fetch(`${this.domin}search/category?q=${catigory}`);
       const data = await res.json();
       this.catigoryProducts = data.category;
-      console.log(this.catigoryProducts);
     },
 
     async getCatigoryProduct1(catigory) {
