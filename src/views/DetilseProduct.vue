@@ -60,14 +60,14 @@
               <div class="d-flex align-center mb-2">
                 <v-icon color="amber">mdi-star</v-icon>
                 <v-rating
-                  v-model="this.SingleProduct.votes"
+                  v-model="this.SingleProduct.votes - 1"
                   readonly
                   density="compact"
                   :length="5"
                   color="amber"
                   class="mr-2"
                 />
-                <span class="text-grey">({{ this.Reviwes.length }} تقييم)</span>
+                <span class="text-grey">({{ this.Reviwes.length }} المراجعات )</span>
               </div>
 
               <v-card-text class="mb-3 desc-text">
