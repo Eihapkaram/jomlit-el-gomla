@@ -191,7 +191,7 @@
               آراء العملاء
             </v-card-title>
 
-            <v-list-item style="width: 100%;display: flex;flex-direction: column-reverse;">
+            <v-list-item style="width: 100%;">
               <transition-group name="fade" tag="div" style="width: 100%">
                 <v-card
                   v-for="(rev, i) in this.Reviwes"
