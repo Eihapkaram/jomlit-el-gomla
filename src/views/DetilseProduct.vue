@@ -343,6 +343,7 @@ export default {
       iconcolor: "red",
       progrssbtn: false,
       reveiwe: "",
+      tab: null,
     };
   },
   setup() {
