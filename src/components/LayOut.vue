@@ -731,7 +731,7 @@
             <router-link
               v-for="cat in this.page.slice(0, 5)"
               :key="cat.titel"
-              :to="{ name: 'catigory', params: { catigory: cat.slug } }"
+              :to="{ name: 'catigoryPage', params: { catigory: cat.slug } }"
               class="nav-link"
             >
               {{ cat.slug }}
