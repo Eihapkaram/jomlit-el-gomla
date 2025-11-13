@@ -44,8 +44,9 @@ export const mystore = defineStore("mystore", {
   actions: {
     async login(token, role) {
       this.token = token;
-      this.userRole = role;
+      this.userRole = this.userRole;
       localStorage.setItem("token", token);
+      this.User();
     },
     async logoutin() {
       this.token = null;
