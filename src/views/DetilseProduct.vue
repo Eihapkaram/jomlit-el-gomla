@@ -194,7 +194,7 @@
             <v-list-item style="width: 100%">
               <transition-group name="fade" tag="div" style="width: 100%">
                 <v-card
-                  v-for="(rev, i) in this.Reviwes..reverse()"
+                  v-for="(rev, i) in this.Reviwes.reverse()"
                   :key="i"
                   elevation="2"
                   style="
