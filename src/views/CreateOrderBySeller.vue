@@ -98,7 +98,7 @@
           <v-col cols="12" md="6">
             <v-text-field
               v-model="form.phone"
-              label="رقم الهاتف"
+              label=" رقم تليفون العميل  "
               required
               hint="مثال: 010xxxxxxxx"
             />
@@ -114,7 +114,7 @@
           <v-col cols="12" md="6">
             <v-select
               v-model="form.payment_method"
-              :items="['cod', 'credit_card', 'paypal']"
+              :items="['cod']"
               label="طريقة الدفع"
               clearable
             />
