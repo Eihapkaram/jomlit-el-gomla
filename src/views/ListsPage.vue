@@ -167,6 +167,7 @@ export default {
   border-radius: 12px;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
+  height: fit-content;
 }
 .product-img:hover {
   transform: scale(1.07);
