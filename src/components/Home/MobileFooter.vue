@@ -97,7 +97,7 @@ const userLabel = computed(() => {
     case "admin":
       return "لوحة التحكم";
     case "seller":
-      return "ملف البائع";
+      return "ملف المندوب";
     case "customer":
       return "ملفي الشخصي";
     default:
