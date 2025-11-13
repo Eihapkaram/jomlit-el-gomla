@@ -449,6 +449,7 @@ export default {
 }
 #my-galleryimg {
   width: 130px;
+  height: 200px;
 }
 #tabslide {
   width: 500px;
