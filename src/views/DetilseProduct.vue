@@ -343,6 +343,7 @@ export default {
       iconcolor: "red",
       progrssbtn: false,
       reveiwe: "",
+      tab: "", 
     };
   },
   setup() {
@@ -406,7 +407,7 @@ export default {
   },
 
   async mounted() {
-    if (this.SingleProduct?.images?.length > 0) {
+    if (this.SingleProduct.images.length > 0) {
     this.tab = this.SingleProduct.images[0];
   };
     await this.getSingle(this.$route.params.idparam);
