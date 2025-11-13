@@ -182,6 +182,8 @@
               border-radius: 16px;
               box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
               margin-top: 30px;
+              height: 500px;
+             overflow-y: scroll;
             "
           >
             <v-divider class="mb-4"></v-divider>
@@ -408,7 +410,7 @@ export default {
 
   async mounted() {
     if (this.SingleProduct.images.length > 0) {
-    this.tab = this.SingleProduct.images[0];
+    this.tab =this.domin + this.SingleProduct.images[0];
   };
     await this.getSingle(this.$route.params.idparam);
     await this.getReviwes(this.$route.params.idparam);
@@ -426,7 +428,7 @@ export default {
     if (desc) desc.setAttribute("content", this.SingleProduct.description);
   },
   unmounted() {
-    document.querySelector("#big-img").src = "";
+    this.tab= "";
   },
 };
 </script>
