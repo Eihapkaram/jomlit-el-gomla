@@ -607,7 +607,7 @@ export default {
 }
   #revews {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   justify-content: flex-start; /* 👈 يبدأ من فوق */
   align-items: stretch;
   align-content: center;
