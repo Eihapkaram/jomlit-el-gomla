@@ -616,7 +616,7 @@ export default {
   border-radius: 16px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   margin-top: 30px;
-  height: 500px;
+  height: fit-content;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #cfcfcf #fafafa;
