@@ -608,8 +608,9 @@ export default {
 }
   #revews {
   display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
+  flex-direction: column;
+  justify-content: flex-start; /* 👈 يبدأ من فوق */
+  align-items: stretch;
   align-content: center;
   padding: 20px;
   background-color: #fafafa;
