@@ -60,7 +60,7 @@
               <div class="d-flex align-center mb-2">
                 <v-icon color="amber">mdi-star</v-icon>
                 <v-rating
-                  v-model="(this.SingleProduct.votes - 1)"
+                  v-model="this.SingleProduct.votes"
                   readonly
                   density="compact"
                   :length="5"
@@ -424,7 +424,7 @@ export default {
     if (desc) desc.setAttribute("content", this.SingleProduct.description);
   },
   unmounted() {
-    document.querySelector("#big-img").src = "";
+    document.querySelector("#big-img").src = null;
   },
 };
 </script>
