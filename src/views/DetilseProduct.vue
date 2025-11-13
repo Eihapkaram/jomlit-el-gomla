@@ -63,7 +63,7 @@
                   v-model="this.SingleProduct.votes"
                   readonly
                   density="compact"
-                  :length="5"
+                  :length="pro.votes"
                   color="amber"
                   class="mr-2"
                 />
@@ -449,7 +449,7 @@ export default {
 }
 #my-galleryimg {
   width: 130px;
-  height: 200px;
+  height: fit-content;
 }
 #tabslide {
   width: 500px;
