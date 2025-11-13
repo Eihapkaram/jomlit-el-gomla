@@ -87,14 +87,14 @@
             class="mb-4"
           />
           <v-file-input
-            v-model="front_id_image"
-            label="صورة البطاقة الامامية"
-            accept="image/*"
+             @change="onFileChange"
+             label="صورة البطاقة الامامية"
+             accept="image/*"
             variant="outlined"
             class="mb-4"
           />
           <v-file-input
-            v-model="back_id_image"
+            @change="onFileChange2"
             label="صورة البطاقة الخلفية"
             accept="image/*"
             variant="outlined"
@@ -204,9 +204,9 @@
             class="mb-4"
           />
           <v-file-input
-            @change="onFileChange"
-            label="صورة البطاقة الامامية"
-            accept="image/*"
+             @change="onFileChange"
+             label="صورة البطاقة الامامية"
+             accept="image/*"
             variant="outlined"
             class="mb-4"
           />
