@@ -407,9 +407,6 @@ export default {
   },
 
   async mounted() {
-    if (this.SingleProduct?.images?.length > 0) {
-    this.tab = this.SingleProduct.images[0];
-  };
     await this.getSingle(this.$route.params.idparam);
     await this.getReviwes(this.$route.params.idparam);
     setTimeout(() => {}, 100);
