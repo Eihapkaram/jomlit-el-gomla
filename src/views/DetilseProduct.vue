@@ -182,8 +182,6 @@
               border-radius: 16px;
               box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
               margin-top: 30px;
-              height: 500px;
-             overflow-y: scroll;
             "
           >
             <v-divider class="mb-4"></v-divider>
@@ -345,7 +343,6 @@ export default {
       iconcolor: "red",
       progrssbtn: false,
       reveiwe: "",
-      tab: "", 
     };
   },
   setup() {
@@ -409,7 +406,9 @@ export default {
   },
 
   async mounted() {
-    this.tab =  domin + this.SingleProduct.img;
+    if (this.SingleProduct?.images?.length > 0) {
+    this.tab = this.SingleProduct.images[0];
+  };
     await this.getSingle(this.$route.params.idparam);
     await this.getReviwes(this.$route.params.idparam);
     setTimeout(() => {}, 100);
@@ -426,7 +425,7 @@ export default {
     if (desc) desc.setAttribute("content", this.SingleProduct.description);
   },
   unmounted() {
-    this.tab= "";
+    document.querySelector("#big-img").src = "";
   },
 };
 </script>
