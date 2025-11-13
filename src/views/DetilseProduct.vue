@@ -62,9 +62,9 @@
                 <v-rating
                   v-model="this.SingleProduct.votes"
                   readonly
+                  density="compact"
                   :length="5"
                   color="amber"
-                  class="mr-2"
                 />
                 <span class="text-grey">({{ this.Reviwes.length }} تقييم )</span>
               </div>
@@ -406,7 +406,6 @@ export default {
   },
 
   async mounted() {
-    document.querySelector("#big-img").src = this.domin + this.SingleProduct.img;
     await this.getSingle(this.$route.params.idparam);
     await this.getReviwes(this.$route.params.idparam);
     setTimeout(() => {}, 100);
@@ -423,7 +422,7 @@ export default {
     if (desc) desc.setAttribute("content", this.SingleProduct.description);
   },
   unmounted() {
-    document.querySelector("#big-img").src = null;
+    document.querySelector("#big-img").src = "";
   },
 };
 </script>
