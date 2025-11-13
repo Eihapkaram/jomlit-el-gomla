@@ -407,7 +407,7 @@ export default {
   },
 
   async mounted() {
-    document.querySelector("#big-img").src =. this.domin + this.SingleProduct.img;
+    document.querySelector("#big-img").src = this.domin + this.SingleProduct.img;
     await this.getSingle(this.$route.params.idparam);
     await this.getReviwes(this.$route.params.idparam);
     setTimeout(() => {}, 100);
