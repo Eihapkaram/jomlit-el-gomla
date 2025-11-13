@@ -286,13 +286,14 @@ export default {
     ...mapState(mystore, ["domin", "token"]),
   },
   methods: {
-     onFileChange(e) {
-     this.front_id_image = e.target.files[0]; // هذا كافي للرفع
- },
-
-onFileChange2(e) {
-  this.back_id_image = e.target.files[0];
+     onFileChange(files) {
+  this.front_id_image = files && files.length ? files[0] : null;
 },
+
+onFileChange2(files) {
+  this.back_id_image = files && files.length ? files[0] : null;
+},
+
     requestLocation() {
       if (window.cordova && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -360,10 +361,11 @@ onFileChange2(e) {
       formData.append("role", this.role);
 
       if (this.role === "seller") {
-        formData.append("wallet_number", this.wallet_number);
-        formData.append("front_id_image", this.front_id_image);
-        formData.append("back_id_image", this.back_id_image);
-      }
+  formData.append("wallet_number", this.wallet_number);
+  if (this.front_id_image) formData.append("front_id_image", this.front_id_image);
+  if (this.back_id_image) formData.append("back_id_image", this.back_id_image);
+}
+
       try {
         const res = await axios.post(`${this.domin}register`, formData, {
           headers: {
