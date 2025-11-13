@@ -286,18 +286,13 @@ export default {
     ...mapState(mystore, ["domin", "token"]),
   },
   methods: {
-    onFileChange2(e) {
-      this.back_id_image = e.target.files[0];
-    },
     onFileChange(e) {
-      this.front_id_image = e.target.files[0];
+  this.front_id_image = e.target.files[0]; // هذا كافي للرفع
+}
 
-      let reader = new FileReader();
-      reader.readAsDataURL(this.img);
-      reader.onload = (event) => {
-        this.showimg = event.target.result;
-      };
-    },
+onFileChange2(e) {
+  this.back_id_image = e.target.files[0];
+}
     requestLocation() {
       if (window.cordova && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
