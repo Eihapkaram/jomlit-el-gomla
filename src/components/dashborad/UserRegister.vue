@@ -284,136 +284,150 @@ export default {
   },
   computed: {
     ...mapState(mystore, ["domin", "token"]),
-  },    
+  },
   methods: {
-  // الملفات
-  onFileChange(files) {
-    // تاخد أول ملف لو موجود
-    this.front_id_image = files && files.length ? files[0] : null;
-  },
+     onFileChange(files) {
+  this.front_id_image = files && files.length ? files[0] : null;
+},
 
-  onFileChange2(files) {
-    this.back_id_image = files && files.length ? files[0] : null;
-  },
+onFileChange2(files) {
+  this.back_id_image = files && files.length ? files[0] : null;
+},
 
-  // الموقع
-  requestLocation() {
-    if (window.cordova && navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          this.latitude = position.coords.latitude;
-          this.longitude = position.coords.longitude;
-          this.showLocationAlert = false;
-        },
-        (err) => {
-          console.error("خطأ في الحصول على الموقع:", err);
-          this.showLocationAlert = true;
-        },
-        { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
-      );
-    } else if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          this.latitude = position.coords.latitude;
-          this.longitude = position.coords.longitude;
-          this.showLocationAlert = false;
-        },
-        () => {
-          this.showLocationAlert = true;
-        }
-      );
-    } else {
-      alert("المتصفح لا يدعم خدمة الموقع الجغرافي");
-    }
-  },
+    requestLocation() {
+      if (window.cordova && navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.latitude = position.coords.latitude;
+            this.longitude = position.coords.longitude;
+            this.showLocationAlert = false;
+          },
+          (err) => {
+            console.error("خطأ في الحصول على الموقع:", err);
+            this.showLocationAlert = true;
+          },
+          { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+        );
+      } else if ("geolocation" in navigator) {
+        // fallback للمتصفح
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.latitude = position.coords.latitude;
+            this.longitude = position.coords.longitude;
+            this.showLocationAlert = false;
+          },
+          () => {
+            this.showLocationAlert = true;
+          }
+        );
+      } else {
+        alert("المتصفح لا يدعم خدمة الموقع الجغرافي");
+      }
+    },
 
-  async funregister() {
-    if (!this.latitude || !this.longitude) {
-      this.showLocationAlert = true;
-      return;
-    }
-    this.active = true;
-    const token = localStorage.getItem("token");
-    let formData = new FormData();
-    formData.append("name", this.name);
-    formData.append("last_name", this.last_name);
-    formData.append("email", this.email);
-    formData.append("password", this.password);
-    formData.append("latitude", this.latitude);
-    formData.append("longitude", this.longitude);
-    formData.append("security_question", this.security_question);
-    formData.append("security_answer", this.security_answer);
-    formData.append("role", this.role);
+    requestLocationL() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            this.latitude = position.coords.latitude;
+            this.longitude = position.coords.longitude;
+            this.showLocationAlert = false;
+          },
+          () => {
+            this.showLocationAlert = true;
+          }
+        );
+      } else {
+        alert("المتصفح لا يدعم خدمة الموقع الجغرافي");
+      }
+    },
 
-    if (this.role === "seller") {
-      formData.append("wallet_number", this.wallet_number);
-      if (this.front_id_image) formData.append("front_id_image", this.front_id_image);
-      if (this.back_id_image) formData.append("back_id_image", this.back_id_image);
-    }
+    async funregister() {
+      if (!this.latitude || !this.longitude) {
+        this.showLocationAlert = true;
+        return;
+      }
+      this.active = true;
+      const token = localStorage.getItem("token");
+      let formData = new FormData();
+      formData.append("name", this.name);
+      formData.append("last_name", this.last_name);
+      formData.append("email", this.email);
+      formData.append("password", this.password);
+      formData.append("latitude", this.latitude);
+      formData.append("longitude", this.longitude);
+      formData.append("security_question", this.security_question);
+      formData.append("security_answer", this.name);
+      formData.append("role", this.role);
 
-    try {
-      const res = await axios.post(`${this.domin}register`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log("تم تسجيل:", res.data);
-      this.massage = "done register";
-      this.snackbar = true;
-      localStorage.setItem("token", res.data.token);
-      this.$router.push("/");
-    } catch (err) {
-      console.error(err.response?.data || err);
-      this.massage = err.response?.data?.message || "حدث خطأ";
-      this.snackbar = true;
-      this.active = false;
-    }
-  },
-
-  async registerPhone() {
-    if (!this.latitude || !this.longitude) {
-      this.showLocationAlert = true;
-      return;
-    }
-    this.active = true;
-    const token = localStorage.getItem("token");
-    let formData1 = new FormData();
-    formData1.append("phone", this.phone);
-    formData1.append("name", this.name);
-    formData1.append("password", this.password);
-    formData1.append("latitude", this.latitude);
-    formData1.append("longitude", this.longitude);
-    formData1.append("security_question", this.security_question);
-    formData1.append("security_answer", this.security_answer);
-    formData1.append("role", this.role);
-
-    if (this.role === "seller") {
-      formData1.append("wallet_number", this.wallet_number);
-      if (this.front_id_image) formData1.append("front_id_image", this.front_id_image);
-      if (this.back_id_image) formData1.append("back_id_image", this.back_id_image);
-    }
-
-    try {
-      const res = await axios.post(`${this.domin}register-phone`, formData1, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log("تم تسجيل:", res.data);
-      this.massage = "done register";
-      this.snackbar = true;
-      localStorage.setItem("token", res.data.token);
-      this.$router.push("/");
-    } catch (err) {
-      console.error(err.response?.data || err);
-      this.massage = err.response?.data?.message || "حدث خطأ";
-      this.snackbar = true;
-      this.active = false;
-    }
-  },
+      if (this.role === "seller") {
+  formData.append("wallet_number", this.wallet_number);
+  if (this.front_id_image) formData.append("front_id_image", this.front_id_image);
+  if (this.back_id_image) formData.append("back_id_image", this.back_id_image);
 }
 
+      try {
+        const res = await axios.post(`${this.domin}register`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log("تم تسجيل:", res.data);
+        this.massage = "done register";
+        this.snackbar = true;
+        localStorage.setItem("token", res.data.token);
+        
+        this.$router.push("/");
+      } catch (err) {
+        console.error(err.response?.data || err);
+        this.massage = err.response?.data.message;
+        this.snackbar = true;
+        this.active = false;
+      }
+    },
+
+    async registerPhone() {
+      if (!this.latitude || !this.longitude) {
+        this.showLocationAlert = true;
+        return;
+      }
+      this.active = true;
+      const token = localStorage.getItem("token");
+      let formData1 = new FormData();
+      formData1.append("phone", this.phone);
+      formData1.append("name", this.name);
+      formData1.append("password", this.password);
+      formData1.append("latitude", this.latitude);
+      formData1.append("longitude", this.longitude);
+      formData1.append("security_question", this.security_question);
+      formData1.append("security_answer", this.security_answer);
+      formData1.append("role", this.role);
+
+      if (this.role === "seller") {
+        formData1.append("wallet_number", this.wallet_number);
+        formData1.append("front_id_image", this.front_id_image);
+        formData1.append("back_id_image", this.back_id_image);
+      }
+      try {
+        const res = await axios.post(`${this.domin}register-phone`, formData1, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log("تم تسجيل:", res.data);
+        this.massage = "done register";
+        this.snackbar = true;
+        localStorage.setItem("token", res.data.token);
+        this.$router.push("/");
+      } catch (err) {
+        console.error(err.response?.data || err);
+        this.massage = err.response?.data.message;
+        this.snackbar = true;
+        this.active = false;
+      }
+    },
+  },
 };
 </script>
