@@ -63,7 +63,7 @@
                   v-model="this.SingleProduct.votes"
                   readonly
                   density="compact"
-                  :length="pro.votes"
+                  :length="this.SingleProduct.votes"
                   color="amber"
                   class="mr-2"
                 />
