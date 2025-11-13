@@ -67,7 +67,7 @@
                   color="amber"
                   class="mr-2"
                 />
-                <span class="text-grey">({{ this.Reviwes.length }} المراجعات )</span>
+                <span class="text-grey">({{ this.Reviwes.length }} تقييم )</span>
               </div>
 
               <v-card-text class="mb-3 desc-text">
