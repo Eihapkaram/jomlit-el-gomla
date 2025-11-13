@@ -172,19 +172,6 @@
           <!-- المراجعات -->
           <div
             id="revews"
-            style="
-              display: flex;
-              flex-flow: column;
-              justify-content: center;
-              align-content: center;
-              padding: 20px;
-              background-color: #fafafa;
-              border-radius: 16px;
-              box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-              margin-top: 30px;
-             height: 500px;
-             overflow-y: scroll;
-            "
           >
             <v-divider class="mb-4"></v-divider>
 
@@ -619,6 +606,33 @@ export default {
   left: 40px;
   z-index: 3;
 }
+  #revews {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-content: center;
+  padding: 20px;
+  background-color: #fafafa;
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-top: 30px;
+  height: 500px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #cfcfcf #fafafa;
+}
+
+#revews::-webkit-scrollbar {
+  width: 6px;
+}
+#revews::-webkit-scrollbar-thumb {
+  background-color: #bbb;
+  border-radius: 10px;
+}
+#revews::-webkit-scrollbar-thumb:hover {
+  background-color: #888;
+}
+
 /* Tablet */
 @media (max-width: 991px) {
   #plus {
