@@ -60,9 +60,8 @@
               <div class="d-flex align-center mb-2">
                 <v-icon color="amber">mdi-star</v-icon>
                 <v-rating
-                  v-model="this.SingleProduct.votes-1"
+                  v-model="this.SingleProduct.votes"
                   readonly
-                  density="compact"
                   :length="5"
                   color="amber"
                   class="mr-2"
