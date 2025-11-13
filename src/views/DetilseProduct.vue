@@ -63,7 +63,7 @@
                   v-model="this.SingleProduct.votes"
                   readonly
                   density="compact"
-                  :length="this.SingleProduct.votes"
+                  :length="5"
                   color="amber"
                   class="mr-2"
                 />
@@ -93,13 +93,9 @@
 
                 <span style="color: #558b2f" class="mt-2">
                   <v-icon color="green">mdi-refresh</v-icon>
-                  سياسة الإرجاع: {{ this.SingleProduct.returnPolicy }}
+                  سياسة الإرجاع: {{ this.SingleProduct.url }}
                 </span>
 
-                <span
-                  ><v-icon color="green">mdi-barcode-scan</v-icon> رمز المنتج
-                  (SKU): {{ this.SingleProduct.url }}</span
-                >
 
                 <span class="text-h6 mt-2 font-weight-bold green-text">
                   <v-icon color="amber">mdi-cash-multiple</v-icon>
