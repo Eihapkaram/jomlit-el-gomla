@@ -286,13 +286,13 @@ export default {
     ...mapState(mystore, ["domin", "token"]),
   },
   methods: {
-    onFileChange(e) {
-  this.front_id_image = e.target.files[0]; // هذا كافي للرفع
-}
+     onFileChange(e) {
+     this.front_id_image = e.target.files[0]; // هذا كافي للرفع
+ },
 
 onFileChange2(e) {
   this.back_id_image = e.target.files[0];
-}
+},
     requestLocation() {
       if (window.cordova && navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
