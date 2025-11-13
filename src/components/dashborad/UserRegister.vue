@@ -81,7 +81,7 @@
         <template v-if="role === 'seller'">
           <v-text-field
             v-model="wallet_number"
-            label="رقم المحفظة"
+            label=" رقم المحفظة زي فودافون كاش.. الخ"
             placeholder="اكتب رقم المحفظة"
             variant="outlined"
             class="mb-4"
