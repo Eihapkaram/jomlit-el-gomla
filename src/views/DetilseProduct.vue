@@ -257,8 +257,8 @@
                 </v-card>
               </transition-group>
             </v-list-item>
-
-            <form
+          </div>
+          <form
               @submit.prevent="funvaledcom(this.$route.params.idparam)"
               style="
                 background-color: #fff;
@@ -301,7 +301,6 @@
                 <v-icon left>mdi-send</v-icon> نشر
               </v-btn>
             </form>
-          </div>
         </v-col>
       </v-row>
     </div>
