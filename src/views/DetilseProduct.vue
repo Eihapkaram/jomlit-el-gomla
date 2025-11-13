@@ -352,6 +352,20 @@ export default {
     };
   },
   computed: { ...mapState(mystore, ["SingleProduct", "Reviwes", "domin"]) },
+  watch: {
+  SingleProduct: {
+    immediate: true,
+    deep: true,
+    handler(newVal) {
+      if (newVal && newVal.img) {
+        // 👇 نرجع للصورة الأساسية بتاعة المنتج الجديد
+        this.tab = null;
+        const bigImg = document.querySelector("#big-img");
+        if (bigImg) bigImg.src = this.domin + newVal.img;
+      }
+    },
+  },
+},
   methods: {
     ...mapActions(mystore, ["getSingle", "getReviwes"]),
     ...mapActions(CartStore1, ["Additem"]),
