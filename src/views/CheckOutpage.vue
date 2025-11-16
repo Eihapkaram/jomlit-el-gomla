@@ -399,7 +399,6 @@ export default {
         country: this.province || "eg",
         city: this.city,
         street: this.street,
-        amount: total,
         items: paymobItems,
       };
       try {
