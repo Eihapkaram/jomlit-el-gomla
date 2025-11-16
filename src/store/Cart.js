@@ -3,8 +3,8 @@ import axios from "axios";
 
 export const CartStore1 = defineStore("CartS", {
   state: () => ({
-    CartProduct: [],   // كارت محلي
-    CartProduct2: [],  // كارت السيرفر
+    CartProduct: [],    // الكارت المحلي
+    CartProduct2: [],   // الكارت من السيرفر
     domin: "https://web-production-a6d4.up.railway.app/api/",
   }),
   getters: {},
@@ -13,7 +13,7 @@ export const CartStore1 = defineStore("CartS", {
     async Additem(item) {
       let vivo = false;
       for (let i = 0; i < this.CartProduct.length; i++) {
-        if (this.CartProduct[i].id === item.id) {
+        if (this.CartProduct[i].id == item.id) {
           this.CartProduct[i].quantity += item.quantity;
           vivo = true;
           break;
@@ -29,7 +29,6 @@ export const CartStore1 = defineStore("CartS", {
     async GetCart() {
       if (localStorage.getItem("todo")) {
         this.CartProduct = JSON.parse(localStorage.getItem("todo"));
-        localStorage.setItem("todo", JSON.stringify(this.CartProduct));
       }
     },
 
@@ -39,10 +38,17 @@ export const CartStore1 = defineStore("CartS", {
       localStorage.setItem("todo", JSON.stringify(this.CartProduct));
     },
 
-    // حذف كل عناصر الكارت المحلي
+    // حذف كل العناصر من الكارت المحلي
     async delitemAll() {
       this.CartProduct = [];
       localStorage.setItem("todo", JSON.stringify(this.CartProduct));
+    },
+
+    // تحديث الكارت المحلي
+    async update() {
+      if (localStorage.getItem("todo")) {
+        this.CartProduct = JSON.parse(localStorage.getItem("todo"));
+      }
     },
 
     // جلب الكارت من السيرفر
@@ -58,71 +64,63 @@ export const CartStore1 = defineStore("CartS", {
       }
     },
 
-    // إضافة عنصر للكارت المرتبط بالسيرفر مع تحديث الكمية إذا موجود
+    // إضافة عنصر للكارت من السيرفر وتحديث الـ state فورًا
     async Additem2(item) {
       const token = localStorage.getItem("token");
       let vivo = false;
 
       for (let i = 0; i < this.CartProduct2.length; i++) {
-        if (this.CartProduct2[i].product_id === item.id) {
-          // زيادة الكمية محليًا
+        if (this.CartProduct2[i].product_id == item.id) {
           this.CartProduct2[i].quantity += item.quantity;
           vivo = true;
-
-          // مزامنة الكمية الجديدة مع السيرفر
-          try {
-            await axios.put(
-              `${this.domin}cart/update/${item.id}`,
-              { quantity: this.CartProduct2[i].quantity },
-              { headers: { Authorization: `Bearer ${token}` } }
-            );
-          } catch (err) {
-            console.error(err.response?.data || err);
-          }
           break;
         }
       }
 
       if (!vivo) {
-        // إضافة جديدة على السيرفر
+        // إضافة العنصر جديد في الـ state فورًا
+        this.CartProduct2.push({
+          product_id: item.id,
+          quantity: item.quantity,
+          product: item, // لو تحب تحتفظ بالبيانات الأصلية
+        });
+
         try {
-          const res = await axios.post(
+          await axios.post(
             `${this.domin}cart/add`,
             { product_id: item.id, quantity: item.quantity },
             { headers: { Authorization: `Bearer ${token}` } }
           );
-
-          // تحديث الكارت المحلي بعد الإضافة
-          if (res.data && res.data.cart_item) {
-            this.CartProduct2.push(res.data.cart_item);
-          }
         } catch (err) {
           console.error(err.response?.data || err);
         }
       }
     },
 
-    // حذف عنصر من كارت السيرفر
+    // حذف عنصر من الكارت من السيرفر وتحديث الـ state فورًا
     async delitem2(pro) {
       const token = localStorage.getItem("token");
       try {
         await axios.delete(`${this.domin}cart/delete/${pro.id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
+
+        // حذف العنصر فورًا من state
+        this.CartProduct2 = this.CartProduct2.filter(item => item.id !== pro.id && item.product_id !== pro.id);
       } catch (err) {
         console.error(err.response?.data || err);
       }
-      // تحديث الكارت بعد الحذف
-      await this.GetCart2();
     },
 
-    // حذف كل عناصر كارت السيرفر
+    // حذف كل العناصر من الكارت من السيرفر وتحديث الـ state فورًا
     async CartDelAll() {
       const token = localStorage.getItem("token");
       try {
         await axios.delete(`${this.domin}cart/deleteAll`, {
           headers: { Authorization: `Bearer ${token}` },
         });
+
+        // حذف كل العناصر فورًا من state
         this.CartProduct2 = [];
       } catch (err) {
         console.error(err.response?.data || err);
