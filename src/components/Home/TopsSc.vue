@@ -1,72 +1,80 @@
 <template>
-  <div id="full-width-container">
-    <v-container id="topcato" fluid>
-      <h2 class="section-title">أقسام مميزة</h2>
-      <br />
-      <v-banner id="bann" style="position: relative">
-        <v-row class="d-flex justify-center align-center" dense>
-          <!-- عرض الأقسام -->
-          <div
-            id="catgoryitem"
-            v-for="(item, i) in displayedCategories"
-            :key="i"
-          >
-            <v-card
-              @click="
-                $router.push({
-                  name: 'catigoryPage',
-                  params: { catigory: item.slug },
-                })
-              "
+  <v-lazy
+    :min-height="200"
+    :options="{ threshold: 0.5 }"
+    transition="fade-transition"
+  >
+    <div id="full-width-container">
+      <v-container id="topcato" fluid>
+        <h2 class="section-title">أقسام مميزة</h2>
+        <br />
+        <v-banner id="bann" style="position: relative">
+          <v-row class="d-flex justify-center align-center" dense>
+            <!-- عرض الأقسام -->
+            <div
               id="catgoryitem"
-              elevation="4"
+              v-for="(item, i) in displayedCategories"
+              :key="i"
             >
-              <img
+              <v-card
                 @click="
                   $router.push({
                     name: 'catigoryPage',
                     params: { catigory: item.slug },
                   })
                 "
-                id="image"
-                :src="domin + item.img"
-              />
-              <h2 style="margin-block: 5px">{{ item.slug }}</h2>
-            </v-card>
-          </div>
-
-          <!-- كارت عرض المزيد -->
-          <div id="catgoryitem">
-            <v-card
-              id="catgoryitem"
-              class="d-flex flex-column align-center justify-center"
-              elevation="4"
-              @click="toggleShowMore"
-              style="cursor: pointer; height: 200px; width: 160px"
-            >
-              <v-icon size="60" color="#c79a00">
-                {{
-                  showAll
-                    ? "mdi-minus-circle-outline"
-                    : "mdi-plus-circle-outline"
-                }}
-              </v-icon>
-              <span
-                style="
-                  margin-top: 10px;
-                  font-weight: 600;
-                  color: #c79a00;
-                  font-size: 1.1rem;
-                "
+                id="catgoryitem"
+                elevation="4"
               >
-                {{ showAll ? "عرض أقل" : "عرض المزيد" }}
-              </span>
-            </v-card>
-          </div>
-        </v-row>
-      </v-banner>
-    </v-container>
-  </div>
+                <img
+                  @click="
+                    $router.push({
+                      name: 'catigoryPage',
+                      params: { catigory: item.slug },
+                    })
+                  "
+                  id="image"
+                  :src="domin + item.img"
+                  loading="lazy"
+                  :alt="item.slug"
+                />
+                <h2 style="margin-block: 5px">{{ item.slug }}</h2>
+              </v-card>
+            </div>
+
+            <!-- كارت عرض المزيد -->
+            <div id="catgoryitem">
+              <v-card
+                id="catgoryitem"
+                class="d-flex flex-column align-center justify-center"
+                elevation="4"
+                @click="toggleShowMore"
+                style="cursor: pointer; height: 200px; width: 160px"
+              >
+                <v-icon size="60" color="#c79a00">
+                  {{
+                    showAll
+                      ? "mdi-minus-circle-outline"
+                      : "mdi-plus-circle-outline"
+                  }}
+                </v-icon>
+                <span
+                  style="
+                    margin-top: 10px;
+                    font-weight: 600;
+                    color: #c79a00;
+                    font-size: 1.1rem;
+                  "
+                >
+                  {{ showAll ? "عرض أقل" : "عرض المزيد" }}
+                </span>
+              </v-card>
+            </div>
+          </v-row>
+        </v-banner>
+      </v-container>
+    </div>
+  </v-lazy>
 </template>
 
 <script>

@@ -30,6 +30,8 @@
           <div class="text-center">
             <img
               id="big-img"
+              loading="lazy"
+              alt="image"
               height="400px"
               :src="tab ? domin + tab.path : domin + this.SingleProduct.img"
               style="
@@ -60,7 +62,11 @@
                     v-for="(pro, index) in this.SingleProduct.images"
                     :key="index"
                     :value="pro"
-                    ><img id="my-galleryimg" :src="domin + pro.path"
+                    ><img
+                      id="my-galleryimg"
+                      :src="domin + pro.path"
+                      loading="lazy"
+                      alt="icon"
                   /></v-tab>
                 </v-tabs>
               </swiper-slide>

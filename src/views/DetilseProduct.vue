@@ -12,7 +12,8 @@
             <img
               id="big-img"
               :src="tab ? domin + tab.path : domin + this.SingleProduct.img"
-              style=""
+              :alt="this.SingleProduct.titel"
+              loading="lazy"
             />
             <swiper
               :scrollbar="{ hide: true }"
@@ -36,7 +37,11 @@
                     v-for="(pro, index) in this.SingleProduct.images"
                     :key="index"
                     :value="pro"
-                    ><img id="my-galleryimg" :src="domin + pro.path"
+                    ><img
+                      id="my-galleryimg"
+                      loading="lazy"
+                      alt="image"
+                      :src="domin + pro.path"
                   /></v-tab>
                 </v-tabs>
               </swiper-slide>
@@ -66,7 +71,9 @@
                   color="amber"
                   class="mr-2"
                 />
-                <span class="text-grey">({{ this.Reviwes.length }} تقييم )</span>
+                <span class="text-grey"
+                  >({{ this.Reviwes.length }} تقييم )</span
+                >
               </div>
 
               <v-card-text class="mb-3 desc-text">
@@ -94,7 +101,6 @@
                   <v-icon color="green">mdi-refresh</v-icon>
                   سياسة الإرجاع: {{ this.SingleProduct.url }}
                 </span>
-
 
                 <span class="text-h6 mt-2 font-weight-bold green-text">
                   <v-icon color="amber">mdi-cash-multiple</v-icon>
@@ -170,9 +176,7 @@
           </div>
 
           <!-- المراجعات -->
-          <div
-            id="revews"
-          >
+          <div id="revews">
             <v-divider class="mb-4"></v-divider>
 
             <v-card-title
@@ -191,7 +195,7 @@
               آراء العملاء
             </v-card-title>
 
-            <v-list-item style="width: 100%;">
+            <v-list-item style="width: 100%">
               <transition-group name="fade" tag="div" style="width: 100%">
                 <v-card
                   v-for="(rev, i) in this.Reviwes"
@@ -259,48 +263,48 @@
             </v-list-item>
           </div>
           <form
-              @submit.prevent="funvaledcom(this.$route.params.idparam)"
+            @submit.prevent="funvaledcom(this.$route.params.idparam)"
+            style="
+              background-color: #fff;
+              padding: 20px;
+              border-radius: 14px;
+              margin-top: 10px;
+              border: 1px solid #eee;
+              box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+              width: 100%;
+            "
+          >
+            <v-text-field
+              counter
+              width="90%"
               style="
-                background-color: #fff;
-                padding: 20px;
-                border-radius: 14px;
-                margin-top: 10px;
-                border: 1px solid #eee;
-                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-                width: 100%;
+                position: relative;
+                left: -20px;
+                background-color: #fafafa;
+                border-radius: 10px;
+              "
+              placeholder="أدخل تعليقك هنا..."
+              name="revewe"
+              v-model="reveiwe"
+              variant="outlined"
+              color="amber"
+            ></v-text-field>
+
+            <v-btn
+              type="submit"
+              color="amber"
+              rounded
+              class="text-white"
+              style="
+                font-weight: bold;
+                font-size: 15px;
+                margin-top: 8px;
+                padding: 10px 25px;
               "
             >
-              <v-text-field
-                counter
-                width="90%"
-                style="
-                  position: relative;
-                  left: -20px;
-                  background-color: #fafafa;
-                  border-radius: 10px;
-                "
-                placeholder="أدخل تعليقك هنا..."
-                name="revewe"
-                v-model="reveiwe"
-                variant="outlined"
-                color="amber"
-              ></v-text-field>
-
-              <v-btn
-                type="submit"
-                color="amber"
-                rounded
-                class="text-white"
-                style="
-                  font-weight: bold;
-                  font-size: 15px;
-                  margin-top: 8px;
-                  padding: 10px 25px;
-                "
-              >
-                <v-icon left>mdi-send</v-icon> نشر
-              </v-btn>
-            </form>
+              <v-icon left>mdi-send</v-icon> نشر
+            </v-btn>
+          </form>
         </v-col>
       </v-row>
     </div>
@@ -341,19 +345,19 @@ export default {
   },
   computed: { ...mapState(mystore, ["SingleProduct", "Reviwes", "domin"]) },
   watch: {
-  SingleProduct: {
-    immediate: true,
-    deep: true,
-    handler(newVal) {
-      if (newVal && newVal.img) {
-        // 👇 نرجع للصورة الأساسية بتاعة المنتج الجديد
-        this.tab = null;
-        const bigImg = document.querySelector("#big-img");
-        if (bigImg) bigImg.src = this.domin + newVal.img;
-      }
+    SingleProduct: {
+      immediate: true,
+      deep: true,
+      handler(newVal) {
+        if (newVal && newVal.img) {
+          // 👇 نرجع للصورة الأساسية بتاعة المنتج الجديد
+          this.tab = null;
+          const bigImg = document.querySelector("#big-img");
+          if (bigImg) bigImg.src = this.domin + newVal.img;
+        }
+      },
     },
   },
-},
   methods: {
     ...mapActions(mystore, ["getSingle", "getReviwes"]),
     ...mapActions(CartStore1, ["Additem"]),
@@ -605,7 +609,7 @@ export default {
   left: 40px;
   z-index: 3;
 }
-  #revews {
+#revews {
   display: flex;
   flex-direction: column;
   justify-content: flex-start; /* 👈 يبدأ من فوق */

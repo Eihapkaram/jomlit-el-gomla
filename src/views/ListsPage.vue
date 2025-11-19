@@ -32,6 +32,8 @@
                   height="100px"
                   width="100px"
                   :src="domin + item.img"
+                  :alt="item.title"
+                  loading="lazy"
                   class="product-img"
                 />
               </v-col>

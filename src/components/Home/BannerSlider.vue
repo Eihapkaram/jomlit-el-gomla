@@ -16,7 +16,12 @@
       class="mySwiper"
     >
       <swiper-slide v-for="(item, i) in offers" :key="i"
-        ><img id="item" :src="domin + item.banner" />
+        ><img
+          id="item"
+          alt="banner"
+          loading="lazy"
+          :src="domin + item.banner"
+        />
       </swiper-slide>
     </swiper>
   </div>
@@ -42,20 +47,7 @@ export default {
   },
   data() {
     return {
-      srcs: "http://localhost:8080/img/1.cea911c0.jpg",
-      discrpt: "action moves",
-      namez: "last man down",
-      srcvl: "https://www.youtube.com/embed/GCc7v40DmqA",
-      srcjo: "http://localhost:8080/img/2.02a34ac6.jpg",
-      discriptjo: "action moves",
-      srcvjo: "https://www.youtube.com/embed/ygUHhImN98w",
-      namejo: "jocker",
-      srcsu: "http://localhost:8080/img/3.cee2bd5f.jpg",
-      srcvsu: "https://www.youtube.com/embed/OtXlekcPnmM",
-      discriptsu: "cartoon moves",
-      namesu: "sun",
       isactive: false,
-      sr: "https://image.tmdb.org/t/p/original",
     };
   },
   inject: ["fun", "trialmovis"],

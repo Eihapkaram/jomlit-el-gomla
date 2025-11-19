@@ -30,6 +30,8 @@
                   height="100px"
                   width="fit-content"
                   :src="domin + item.product.img"
+                  :alt="item.product.titel"
+                  loading="lazy"
                 />
               </td>
               <td>{{ item.product.titel }}</td>

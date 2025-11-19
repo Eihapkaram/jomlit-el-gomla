@@ -11,6 +11,7 @@
                   v-if="user.img"
                   :src="domin + user.img"
                   alt="صورة المشتري"
+                  loading="lazy"
                   cover
                 ></v-img>
                 <v-icon v-else size="60" color="darkgold"

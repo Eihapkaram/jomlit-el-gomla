@@ -50,8 +50,13 @@
                     params: { catigory: pro.name },
                   })
                 "
-                :src="domin + pro.img"
+                :src="
+                  `https://res.cloudinary.com/diepcc0jl/image/fetch/f_auto,q_auto/` +
+                  domin +
+                  pro.img
+                "
                 :alt="pro.name"
+                loading="lazy"
               />
 
               <h2 class="category-name" style="margin-block: 5px">
@@ -115,7 +120,11 @@
                 <div class="category-card">
                   <div class="card-horizontal">
                     <div class="image-wrapper">
-                      <img :src="domin + item.img" :alt="item.name" />
+                      <img
+                        :src="domin + item.img"
+                        :alt="item.name"
+                        loading="lazy"
+                      />
                     </div>
                     <div class="info">
                       <span class="category-name">{{ item.titel }}</span>

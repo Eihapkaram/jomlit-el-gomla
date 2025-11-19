@@ -1,107 +1,117 @@
 <template>
-  <div dir="rtl" class="products-wrapper">
-    <header class="header">
-      <h2>🛒 منتجات غذائية</h2>
-      <button class="btn-view-all" @click="$router.push({ name: 'all' })">
-        عرض الكل
-      </button>
-    </header>
+  <v-lazy
+    :min-height="200"
+    :options="{ threshold: 0.5 }"
+    transition="fade-transition"
+  >
+    <div dir="rtl" class="products-wrapper">
+      <header class="header">
+        <h2>🛒 منتجات غذائية</h2>
+        <button class="btn-view-all" @click="$router.push({ name: 'all' })">
+          عرض الكل
+        </button>
+      </header>
 
-    <div class="grid">
-      <div v-for="pro in all.slice(0, 6)" :key="pro.id" class="product-card">
-        <div id="parantimg1" class="img-wrapper">
-          <v-btn
-            @click="this.Emitter.emit('dilog', pro)"
-            rounded
-            variant="outliened"
-            id="quick"
-            ripple
-            >نظره سريعه</v-btn
-          >
-          <img :src="domin + pro.img" :alt="pro.title" />
-          <v-row
-            style="
-              position: absolute;
-              gap: auto;
-              align-content: center;
-              justify-content: center;
-            "
-          >
-            <button
-              class="love-btn"
-              :class="{ active: pro.loved }"
-              @click="toggleLove(pro)"
-            >
-              <v-icon>{{
-                pro.loved ? "mdi-heart" : "mdi-heart-outline"
-              }}</v-icon>
-              <v-spacer></v-spacer>
-            </button>
-            <span id="availbel" class="d-flex">%{{ pro.discount }}</span>
-          </v-row>
-        </div>
-
-        <div class="info">
-          <h3 class="title">{{ pro.titel }}</h3>
-          <div class="price-row">
-            <span class="price">{{ Math.floor(pro.price) }} ج.م</span>
-          </div>
-          <p class="brand">العلامة التجارية: {{ pro.brand }}</p>
-
-          <v-rating
-            v-model="pro.votes"
-            readonly
-            :length="5"
-            :size="18"
-            active-color="#d4a017"
-          />
-
-          <!-- ✅ الوصف القابل للتمرير -->
-          <div class="desc">
-            {{ pro.description }}
-          </div>
-
-          <div class="details">
-            🧃 <strong> {{ pro.Counttype }}:</strong> تحتوي على
-            <strong>{{ pro.inCount }}</strong> {{ pro.inCounttype }}
-            <br />
-            💰 <strong>سعر {{ pro.inCounttype }}:</strong>
-            <span>{{ Math.floor(pro.price / pro.inCount) }}</span> ج.م
-          </div>
-
-          <div>
+      <div class="grid">
+        <div v-for="pro in all.slice(0, 6)" :key="pro.id" class="product-card">
+          <div id="parantimg1" class="img-wrapper">
             <v-btn
-              class="cart-btn"
-              @click="
-                $router.push({ name: 'derilse', params: { idparam: pro.id } })
+              @click="this.Emitter.emit('dilog', pro)"
+              rounded
+              variant="outliened"
+              loading="lazy"
+              id="quick"
+              ripple
+              >نظره سريعه</v-btn
+            >
+            <img :src="domin + pro.img" :alt="pro.title" loading="lazy" />
+            <v-row
+              style="
+                position: absolute;
+                gap: auto;
+                align-content: center;
+                justify-content: center;
               "
             >
-              تفاصيل
-            </v-btn>
-            <v-btn class="cart-btn" @click="(pro.quantity = 1), funvaled(pro)">
-              🛒 أضف للسلة
-            </v-btn>
+              <button
+                class="love-btn"
+                :class="{ active: pro.loved }"
+                @click="toggleLove(pro)"
+              >
+                <v-icon>{{
+                  pro.loved ? "mdi-heart" : "mdi-heart-outline"
+                }}</v-icon>
+                <v-spacer></v-spacer>
+              </button>
+              <span id="availbel" class="d-flex">%{{ pro.discount }}</span>
+            </v-row>
+          </div>
+
+          <div class="info">
+            <h3 class="title">{{ pro.titel }}</h3>
+            <div class="price-row">
+              <span class="price">{{ Math.floor(pro.price) }} ج.م</span>
+            </div>
+            <p class="brand">العلامة التجارية: {{ pro.brand }}</p>
+
+            <v-rating
+              v-model="pro.votes"
+              readonly
+              :length="5"
+              :size="18"
+              active-color="#d4a017"
+            />
+
+            <!-- ✅ الوصف القابل للتمرير -->
+            <div class="desc">
+              {{ pro.description }}
+            </div>
+
+            <div class="details">
+              🧃 <strong> {{ pro.Counttype }}:</strong> تحتوي على
+              <strong>{{ pro.inCount }}</strong> {{ pro.inCounttype }}
+              <br />
+              💰 <strong>سعر {{ pro.inCounttype }}:</strong>
+              <span>{{ Math.floor(pro.price / pro.inCount) }}</span> ج.م
+            </div>
+
+            <div>
+              <v-btn
+                class="cart-btn"
+                @click="
+                  $router.push({ name: 'derilse', params: { idparam: pro.id } })
+                "
+              >
+                تفاصيل
+              </v-btn>
+              <v-btn
+                class="cart-btn"
+                @click="(pro.quantity = 1), funvaled(pro)"
+              >
+                🛒 أضف للسلة
+              </v-btn>
+            </div>
           </div>
         </div>
+        <v-container fluid v-if="loading">
+          <v-row>
+            <v-col cols="12">
+              <v-row>
+                <v-col cols="12">
+                  <v-skeleton-loader
+                    class="mx-auto border"
+                    id="cardskl"
+                    style=""
+                    type="image, article, button, button"
+                  ></v-skeleton-loader>
+                </v-col>
+              </v-row>
+            </v-col>
+          </v-row>
+        </v-container>
       </div>
-      <v-container fluid v-if="loading">
-        <v-row>
-          <v-col cols="12">
-            <v-row>
-              <v-col cols="12">
-                <v-skeleton-loader
-                  class="mx-auto border"
-                  id="cardskl"
-                  style=""
-                  type="image, article, button, button"
-                ></v-skeleton-loader>
-              </v-col>
-            </v-row>
-          </v-col>
-        </v-row>
-      </v-container>
     </div>
-  </div>
+  </v-lazy>
 </template>
 
 <script>
@@ -118,13 +128,13 @@ export default {
   },
   methods: {
     ...mapActions(mystore, ["getall"]),
-    ...mapActions(CartStore1, ["Additem", "Additem2", "GetCart"]),
+    ...mapActions(CartStore1, ["Additem", "Additem2", "GetCart2"]),
     ...mapActions(ListsStore1, ["AdditemL"]),
     async Add(pro) {
       if (localStorage.getItem("token")) {
         await this.Additem2(pro);
-        await this.Additem(pro);
-        await this.GetCart();
+
+        await this.GetCart2();
       }
     },
     funvaled(pro) {

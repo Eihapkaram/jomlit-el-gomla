@@ -1,46 +1,56 @@
 <template>
-  <div class="categories-slider">
-    <v-container>
-      <h2 class="section-title">منتجات مميزة</h2>
-      <swiper
-        :centeredSlides="false"
-        :autoplay="{
-          delay: 2500,
-          disableOnInteraction: false,
-        }"
-        :slides-per-view="3"
-        :spaceBetween="20"
-        :modules="modules"
-        :loop="true"
-        :breakpoints="{
-          320: { slidesPerView: 1, spaceBetween: 10 },
-          768: { slidesPerView: 2, spaceBetween: 15 },
-          1024: { slidesPerView: 3, spaceBetween: 20 },
-        }"
-      >
-        <swiper-slide v-for="(item, i) in catigoryProducts1" :key="i">
-          <div class="category-card">
-            <div class="card-horizontal">
-              <div class="image-wrapper">
-                <img :src="domin + item.img" :alt="item.name" />
-              </div>
-              <div class="info">
-                <span class="category-name">{{ item.titel }}</span>
-                <span class="category-price"
-                  >{{ Math.floor(item.price) }} ج.م</span
-                >
-                <v-btn
-                  class="category-price"
-                  @click="(item.quantity = 1), funvaled(item)"
-                  >اضف للعربة</v-btn
-                >
+  <v-lazy
+    :min-height="200"
+    :options="{ threshold: 0.5 }"
+    transition="fade-transition"
+  >
+    <div class="categories-slider">
+      <v-container>
+        <h2 class="section-title">منتجات مميزة</h2>
+        <swiper
+          :centeredSlides="false"
+          :autoplay="{
+            delay: 2500,
+            disableOnInteraction: false,
+          }"
+          :slides-per-view="3"
+          :spaceBetween="20"
+          :modules="modules"
+          :loop="true"
+          :breakpoints="{
+            320: { slidesPerView: 1, spaceBetween: 10 },
+            768: { slidesPerView: 2, spaceBetween: 15 },
+            1024: { slidesPerView: 3, spaceBetween: 20 },
+          }"
+        >
+          <swiper-slide v-for="(item, i) in catigoryProducts1" :key="i">
+            <div class="category-card">
+              <div class="card-horizontal">
+                <div class="image-wrapper">
+                  <img
+                    :src="domin + item.img"
+                    :alt="item.name"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="info">
+                  <span class="category-name">{{ item.titel }}</span>
+                  <span class="category-price"
+                    >{{ Math.floor(item.price) }} ج.م</span
+                  >
+                  <v-btn
+                    class="category-price"
+                    @click="(item.quantity = 1), funvaled(item)"
+                    >اضف للعربة</v-btn
+                  >
+                </div>
               </div>
             </div>
-          </div>
-        </swiper-slide>
-      </swiper>
-    </v-container>
-  </div>
+          </swiper-slide>
+        </swiper>
+      </v-container>
+    </div>
+  </v-lazy>
 </template>
 
 <script>

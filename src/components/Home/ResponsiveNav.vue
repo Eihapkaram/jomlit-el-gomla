@@ -57,6 +57,8 @@
                 src="https://cdn-icons-png.flaticon.com/512/622/622669.png"
                 width="22"
                 height="22"
+                loading="lazy"
+                alt="icon"
                 style="
                   position: absolute;
                   top: 12px;
@@ -81,6 +83,8 @@
               src="https://cdn-icons-png.flaticon.com/512/1828/1828859.png"
               width="35"
               height="35"
+              loading="lazy"
+              alt="icon"
             />
             <span>القائمة</span>
           </div>
@@ -91,6 +95,8 @@
               src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png"
               width="35"
               height="35"
+              loading="lazy"
+              alt="icon"
             />
             <v-badge
               offset-x="-8"
@@ -108,6 +114,8 @@
               src="https://cdn-icons-png.flaticon.com/512/833/833472.png"
               width="35"
               height="35"
+              loading="lazy"
+              alt="icon"
             />
             <v-badge
               offset-x="-8"

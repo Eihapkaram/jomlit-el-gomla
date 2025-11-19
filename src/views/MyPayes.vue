@@ -125,6 +125,8 @@
                   v-if="item.product?.img"
                   :src="domin + item.product.img"
                   style="width: 100px; max-height: 200px"
+                  :alt="item.product.titel"
+                  loading="lazy"
                   cover
                 ></v-img>
                 <v-icon v-else>mdi-image-off</v-icon>

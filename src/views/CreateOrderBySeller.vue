@@ -12,18 +12,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in CartProduct" :key="item.id">
+          <tr v-for="item in CartProduct2" :key="item.id">
             <td>
               <img
                 id="img"
                 height="100px"
                 width="fit-content"
-                :src="domin + item.img"
+                loading="lazy"
+                :src="domin + item.product.img"
+                :alt="item.product.titel"
               />
             </td>
-            <td>{{ item.titel }}</td>
+            <td>{{ item.product.titel }}</td>
             <td>{{ item.quantity }}</td>
-            <td>{{ Math.ceil(item.price) }}ج</td>
+            <td>{{ Math.ceil(item.product.price) }}ج</td>
           </tr>
         </tbody>
       </v-table>
@@ -138,6 +140,7 @@
             <img
               :src="previewImage"
               width="150"
+              loading="lazy"
               style="border-radius: 8px; object-fit: cover"
             />
           </div>
@@ -221,13 +224,14 @@
                   :src="domin + item.product.img"
                   alt="product"
                   width="80"
+                  loading="lazy"
                   height="80"
                   style="border-radius: 10px; object-fit: cover"
                 />
               </td>
               <td>{{ item.product.titel }}</td>
               <td>{{ item.quantity }}</td>
-              <td>{{ Math.ceil(item.price) }} ج</td>
+              <td>{{ Math.ceil(item.product.price) }} ج</td>
             </tr>
           </tbody>
         </v-table>
@@ -303,7 +307,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(CartStore1, ["CartProduct", "CartProduct2"]),
+    ...mapState(CartStore1, ["CartProduct2"]),
     ...mapState(mystore, ["CartData", "domin"]),
   },
   methods: {
@@ -342,7 +346,7 @@ export default {
       formData.append("price", this.total || "");
 
       try {
-        if (this.CartProduct.length) {
+        if (this.CartProduct2.length) {
           const res = await axios.post(
             `${this.domin}orders/seller-create`,
             formData,
@@ -364,8 +368,8 @@ export default {
     },
     fun() {
       this.total = [];
-      this.CartProduct.forEach((el) => {
-        let num = Math.ceil(el.price) * el.quantity;
+      this.CartProduct2.forEach((el) => {
+        let num = Math.ceil(el.product.price) * el.quantity;
         this.total.push(num);
       });
     },
@@ -404,6 +408,7 @@ export default {
   async mounted() {
     await this.fetchCustomers();
     await this.Cart();
+    await this.GetCart2();
     await this.fun();
   },
 };

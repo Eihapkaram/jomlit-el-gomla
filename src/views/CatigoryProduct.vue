@@ -7,6 +7,8 @@
         height="fit-content"
         width="100%"
         style="box-sizing: border-box; width: cover"
+        loading="lazy"
+        alt="banner"
         :src="domin + this.catigoryProducts.banner"
       />
     </banner>
@@ -37,7 +39,14 @@
             ripple
             >نظره سريعه</v-btn
           >
-          <img :src="domin + pro.img" :alt="pro.title" />
+          <img
+            :src="
+              `https://res.cloudinary.com/diepcc0jl/image/fetch/f_auto,q_auto/` +
+              domin +
+              pro.img
+            "
+            :alt="pro.title"
+          />
           <v-row
             style="
               position: absolute;

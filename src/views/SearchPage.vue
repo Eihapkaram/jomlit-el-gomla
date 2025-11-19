@@ -21,7 +21,7 @@
             ripple
             >نظره سريعه</v-btn
           >
-          <img :src="domin + pro.img" :alt="pro.title" />
+          <img :src="domin + pro.img" :alt="pro.title" loading="lazy" />
           <v-row
             style="
               position: absolute;
@@ -118,13 +118,12 @@ export default {
   computed: { ...mapState(mystore, ["searchrsult", "domin"]) },
   methods: {
     ...mapActions(mystore, ["getSearchProduct"]),
-    ...mapActions(CartStore1, ["Additem", "Additem2", "GetCart"]),
+    ...mapActions(CartStore1, ["Additem", "Additem2", "GetCart2"]),
     ...mapActions(ListsStore1, ["AdditemL", "updateL"]),
     async Add(pro) {
       if (localStorage.getItem("token")) {
         await this.Additem2(pro);
-        await this.Additem(pro);
-        await this.GetCart();
+        await this.GetCart2();
       }
     },
     funvaled(pro) {

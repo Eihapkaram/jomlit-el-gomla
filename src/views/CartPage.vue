@@ -96,6 +96,8 @@
                     id="img"
                     height="100px"
                     width="fit-content"
+                    :alt="item.product.titel"
+                    loading="lazy"
                     :src="domin + item.product.img"
                     style="border-radius: 10px; border: 1px solid #ccc"
                   />
@@ -243,7 +245,7 @@ export default {
       "decreaseQuantity",
     ]),
     async delone(item) {
-      await this.delitem2(item),this.fun();
+      await this.delitem2(item), this.fun();
     },
 
     async muns(item) {

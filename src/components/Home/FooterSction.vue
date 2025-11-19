@@ -115,20 +115,24 @@
             src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg"
             alt="Visa"
             title="بطاقة فيزا"
+            loading="lazy"
           />
           <img
             src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
             alt="MasterCard"
             title="ماستر كارد"
+            loading="lazy"
           />
           <img
             src="/src/assets/pngaaa.com-3078140.png"
             alt="Vodafone Cash"
+            loading="lazy"
             title="فودافون كاش"
           />
           <img
             src="/src/assets/wallet.png"
             alt="محافظ إلكترونية"
+            loading="lazy"
             title="محافظ إلكترونية أخرى"
           />
         </v-col>
