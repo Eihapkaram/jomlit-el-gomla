@@ -3,127 +3,199 @@ import axios from "axios";
 
 export const CartStore1 = defineStore("CartS", {
   state: () => ({
-    CartProduct: [],    // الكارت المحلي
-    CartProduct2: [],   // الكارت من السيرفر
+    CartProduct: [],
+    CartProduct2: [],
     domin: "https://web-production-a6d4.up.railway.app/api/",
   }),
-  getters: {},
+
   actions: {
-    // إضافة عنصر للكارت المحلي
+    /* ---------------------------------------------- *
+     *  LOCAL CART  (بدون تسجيل دخول)
+     * ---------------------------------------------- */
+
     async Additem(item) {
-      let vivo = false;
-      for (let i = 0; i < this.CartProduct.length; i++) {
-        if (this.CartProduct[i].id == item.id) {
-          this.CartProduct[i].quantity += item.quantity;
-          vivo = true;
-          break;
-        }
-      }
-      if (!vivo) {
+      const exist = this.CartProduct.find((p) => p.id === item.id);
+
+      if (exist) {
+        exist.quantity += item.quantity;
+      } else {
         this.CartProduct.push(JSON.parse(JSON.stringify(item)));
       }
+
       localStorage.setItem("todo", JSON.stringify(this.CartProduct));
     },
 
-    // جلب الكارت المحلي
     async GetCart() {
-      if (localStorage.getItem("todo")) {
-        this.CartProduct = JSON.parse(localStorage.getItem("todo"));
+      const data = localStorage.getItem("todo");
+      if (data) {
+        this.CartProduct = JSON.parse(data);
       }
     },
 
-    // حذف عنصر من الكارت المحلي
     async delitem(id) {
-      this.CartProduct = this.CartProduct.filter(item => item.id !== id);
+      this.CartProduct = this.CartProduct.filter((p) => p.id !== id);
       localStorage.setItem("todo", JSON.stringify(this.CartProduct));
     },
 
-    // حذف كل العناصر من الكارت المحلي
     async delitemAll() {
       this.CartProduct = [];
-      localStorage.setItem("todo", JSON.stringify(this.CartProduct));
+      localStorage.setItem("todo", JSON.stringify([]));
     },
 
-    // تحديث الكارت المحلي
-    async update() {
-      if (localStorage.getItem("todo")) {
-        this.CartProduct = JSON.parse(localStorage.getItem("todo"));
-      }
-    },
+    /* ---------------------------------------------- *
+     * CART FROM DATABASE (User Logged-in)
+     * ---------------------------------------------- */
 
-    // جلب الكارت من السيرفر
     async GetCart2() {
       const token = localStorage.getItem("token");
+
       try {
         const res = await axios.get(`${this.domin}cart/show`, {
           headers: { Authorization: `Bearer ${token}` },
         });
+
         this.CartProduct2 = res.data.cart.pro_c_item;
+        console.log(this.CartProduct2);
       } catch (err) {
         console.error(err.response?.data || err);
       }
     },
 
-    // إضافة عنصر للكارت من السيرفر وتحديث الـ state فورًا
+    /* ---------------------- إضافة (أو زيادة كمية) منتج ---------------------- */
+
     async Additem2(item) {
       const token = localStorage.getItem("token");
-      let vivo = false;
 
-      for (let i = 0; i < this.CartProduct2.length; i++) {
-        if (this.CartProduct2[i].product_id == item.id) {
-          this.CartProduct2[i].quantity += item.quantity;
-          vivo = true;
-          break;
+      const exist = this.CartProduct2.find((p) => p.product_id === item.id);
+
+      if (exist) {
+        // تحديث لحظي للواجهة
+        const newQuantity = exist.quantity + item.quantity;
+
+        try {
+          await axios.put(
+            `${this.domin}cart/item/${exist.id}/update`,
+            { quantity: newQuantity },
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+
+          exist.quantity = newQuantity; // تحديث محلي لحظي
+        } catch (err) {
+          console.error(err.response?.data || err);
         }
-      }
-
-      if (!vivo) {
-        // إضافة العنصر جديد في الـ state فورًا
-        this.CartProduct2.push({
-          product_id: item.id,
-          quantity: item.quantity,
-          product: item, // لو تحب تحتفظ بالبيانات الأصلية
-        });
-
+      } else {
+        // منتج جديد
         try {
           await axios.post(
             `${this.domin}cart/add`,
-            { product_id: item.id, quantity: item.quantity },
-            { headers: { Authorization: `Bearer ${token}` } }
+            {
+              product_id: item.id,
+              quantity: item.quantity,
+            },
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
           );
+
+          // تحديث لحظي فوراً من السيرفر
+          await this.GetCart2();
         } catch (err) {
           console.error(err.response?.data || err);
         }
       }
     },
 
-    // حذف عنصر من الكارت من السيرفر وتحديث الـ state فورًا
-    async delitem2(pro) {
+    /* ---------------------- حذف عنصر ---------------------- */
+
+    async delitem2(item) {
       const token = localStorage.getItem("token");
+
       try {
-        await axios.delete(`${this.domin}cart/delete/${pro.id}`, {
+        await axios.delete(`${this.domin}cart/delete/${item.id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        // حذف العنصر فورًا من state
-        this.CartProduct2 = this.CartProduct2.filter(item => item.id !== pro.id && item.product_id !== pro.id);
+        // تحديث لحظي
+        this.CartProduct2 = this.CartProduct2.filter((p) => p.id !== item.id);
       } catch (err) {
         console.error(err.response?.data || err);
       }
     },
 
-    // حذف كل العناصر من الكارت من السيرفر وتحديث الـ state فورًا
+    /* ---------------------- حذف كل العناصر ---------------------- */
+
     async CartDelAll() {
       const token = localStorage.getItem("token");
+
       try {
         await axios.delete(`${this.domin}cart/deleteAll`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        // حذف كل العناصر فورًا من state
+        // تحديث لحظي
         this.CartProduct2 = [];
       } catch (err) {
         console.error(err.response?.data || err);
+      }
+    },
+
+    /* ---------------------- تحديث كمية فقط ---------------------- */
+
+    async quantityupdate(item, quantityChange) {
+      const token = localStorage.getItem("token");
+
+      const exist = this.CartProduct2.find((p) => p.product_id === item.id);
+
+      if (exist) {
+        // احسب الكمية النهائية
+        const newQuantity = exist.quantity + quantityChange;
+
+        try {
+          await axios.put(
+            `${this.domin}cart/item/${exist.id}/update`,
+            { quantity: newQuantity }, // هنا بقينا نبعت الكمية النهائية
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+
+          exist.quantity = newQuantity; // تحديث الواجهة
+        } catch (err) {
+          console.error(err.response?.data || err);
+        }
+      }
+    },
+    /* ---------------------- زيادة الكمية +1 ---------------------- */
+
+    async increaseQuantity(item) {
+      const token = localStorage.getItem("token");
+
+      const exist = this.CartProduct2.find(
+        (p) => p.product_id === item.product.id
+      );
+
+      if (exist) {
+        const newQuantity = exist.quantity + 1;
+
+        await axios.post(
+          `${this.domin}cart/item/${exist.id}/increase`,
+          {},
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+      }
+    },
+
+    async decreaseQuantity(item) {
+      const token = localStorage.getItem("token");
+
+      const exist = this.CartProduct2.find(
+        (p) => p.product_id === item.product.id
+      );
+      console.log(exist);
+      if (exist) {
+        await axios.post(
+          `${this.domin}cart/item/${exist.id}/decrease`,
+          {},
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
       }
     },
   },

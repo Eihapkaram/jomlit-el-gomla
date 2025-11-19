@@ -418,7 +418,7 @@
             >عربة التسوق</span
           >
           <span style="color: #555"
-            >عدد العناصر: {{ this.CartProduct.length }}</span
+            >عدد العناصر: {{ this.CartProduct2.length }}</span
           >
           <br />
           <div style="position: relative; width: 100%; height: fit-content">
@@ -479,7 +479,7 @@
         <div id="itemCartcon" style="height: fit-content">
           <v-row id="cartrow">
             <span
-              v-if="this.CartProduct.length == 0 && token"
+              v-if="this.CartProduct2.length == 0 && token"
               style="margin: auto; font-weight: bold; color: #777"
             >
               سلة التسوق فارغة 🛒
@@ -495,7 +495,7 @@
             </span>
 
             <v-table
-              v-if="this.CartProduct.length > 0"
+              v-if="this.CartProduct2.length > 0"
               id="tablecart"
               fixed-header="true"
             >
@@ -507,7 +507,7 @@
 
               <tr
                 id="itemtr"
-                v-for="(item, i) in this.CartProduct"
+                v-for="(item, i) in this.CartProduct2"
                 :key="item.id || i"
               >
                 <td>
@@ -516,33 +516,27 @@
                       <img
                         height="100px"
                         width="fit-content"
-                        :src="this.domin + item.img"
+                        :src="this.domin + item.product.img"
                       />
-                      <span class="text-h6">{{ item.titel }}</span>
+                      <span class="text-h6">{{ item.product.titel }}</span>
                     </v-col>
                   </v-row>
                 </td>
-                <td>{{ Math.ceil(item.price) }} ج.م</td>
+                <td>{{ Math.ceil(item.product.price) }} ج.م</td>
                 <td>
-                  <v-icon
-                    @click="muns(item), fun(), saveToLocalStorage()"
-                    color="red-darken-1"
-                  >
+                  <v-icon @click="muns(item), this.fun()" color="red-darken-1">
                     mdi-minus
                   </v-icon>
                   {{ item.quantity }}
                   <v-icon
-                    @click="item.quantity++, fun(), saveToLocalStorage()"
+                    @click="increaseQuantity(item), plus(item)"
                     color="green-darken-1"
                   >
                     mdi-plus
                   </v-icon>
                 </td>
                 <td>
-                  <v-icon
-                    @click="delone(item), fun(), saveToLocalStorage()"
-                    color="red"
-                  >
+                  <v-icon @click="delone(item), fun()" color="red">
                     mdi-delete
                   </v-icon>
                 </td>
@@ -552,7 +546,7 @@
         </div>
 
         <div
-          v-if="this.CartProduct.length > 0"
+          v-if="this.CartProduct2.length > 0"
           id="conCartBtn"
           class="d-flex flex-column"
         >
@@ -649,7 +643,7 @@
             <!-- السلة -->
             <v-btn icon variant="text" color="#444" @click="this.openCart()">
               <v-badge
-                :content="this.CartProduct.length"
+                :content="this.CartProduct2.length"
                 color="#c79a00"
                 offset-x="-7"
                 offset-y="-4"
@@ -920,7 +914,7 @@ export default {
       "userinfo",
       "token",
     ]),
-    ...mapState(CartStore1, ["CartProduct"]),
+    ...mapState(CartStore1, ["CartProduct2"]),
     ...mapState(ListsStore1, ["list"]),
   },
   watch: {
@@ -932,39 +926,36 @@ export default {
   },
   methods: {
     ...mapActions(mystore, ["logoutin"]),
-    async plusormuns() {
-      await this.update();
-    },
+
     async delone(item) {
-      await this.delitem(item.id), await this.delitem2(item.id);
+      await this.delitem2(item),this.fun();
     },
-    async delAll() {
-      await this.CartDelAll(),
-        await this.delcart(),
-        await this.saveToLocalStorage();
-    },
-    muns(item) {
+
+    async muns(item) {
       let q = item.quantity;
       if (q == 1) {
         return;
       } else {
         item.quantity--;
       }
+      
+      await this.decreaseQuantity(item);
+    },
+    plus(item) {
+      item.quantity++, this.fun();
     },
     fun() {
       this.nums = [];
       this.total = [];
-      this.CartProduct.forEach((el) => {
-        let num = Math.ceil(el.price) * el.quantity;
+      this.CartProduct2.forEach((el) => {
+        const num = Math.ceil(el.product.price) * el.quantity;
         this.nums.push(num);
-        let my = this.nums.reduce(
-          (accumulator, currentValue) => accumulator + currentValue
-        );
+        const my = this.nums.reduce((acc, cur) => acc + cur, 0);
         this.total.push(my);
       });
     },
     saveToLocalStorage() {
-      localStorage.setItem("todo", JSON.stringify(this.CartProduct));
+      localStorage.setItem("todo", JSON.stringify(this.CartProduct2));
     },
     async fetchUser() {
       if (!this.token) return;
@@ -1027,7 +1018,7 @@ export default {
       this.getSearchProduct(data);
     },
     delcart() {
-      this.CartProduct.splice(0, 1);
+      this.CartProduct2.splice(0, 1);
     },
 
     ...mapActions(mystore, [
@@ -1037,13 +1028,11 @@ export default {
       "getCatigoryDash",
       "Pages",
       "Userinfo",
-      "User"
+      "User",
     ]),
     ...mapActions(CartStore1, [
-      "GetCart",
-      "delitem",
-      "update",
-      "CartDelAll",
+      "increaseQuantity",
+      "decreaseQuantity",
       "delitem2",
       "GetCart2",
     ]),
@@ -1057,10 +1046,9 @@ export default {
     await this.getCatigoryDash();
     await this.update();
     await this.Userinfo();
-    await this.User()
+    await this.User();
     await this.GetCart2();
     await this.Pages();
-    await this.GetCart();
     await this.getcatigories();
     // تحديث المستخدم عند بداية التحميل
 

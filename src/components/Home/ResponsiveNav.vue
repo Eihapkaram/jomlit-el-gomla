@@ -97,7 +97,7 @@
               offset-y="-10"
               color="orange"
               max="5"
-              :content="CartProduct.length"
+              :content="CartProduct2.length"
             ></v-badge>
             <span>السلة</span>
           </div>
@@ -140,7 +140,7 @@ export default {
   },
   computed: {
     ...mapState(mystore, ["catigoryies"]),
-    ...mapState(CartStore1, ["CartProduct"]),
+    ...mapState(CartStore1, ["CartProduct2"]),
     ...mapState(ListsStore1, ["list"]),
   },
   methods: {

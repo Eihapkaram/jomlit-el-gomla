@@ -23,18 +23,18 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in CartProduct" :key="item.id">
+            <tr v-for="item in CartProduct2" :key="item.id">
               <td>
                 <img
                   id="img"
                   height="100px"
                   width="fit-content"
-                  :src="domin + item.img"
+                  :src="domin + item.product.img"
                 />
               </td>
-              <td>{{ item.titel }}</td>
+              <td>{{ item.product.titel }}</td>
               <td>{{ item.quantity }}</td>
-              <td>{{ Math.ceil(item.price) }}ج</td>
+              <td>{{ Math.ceil(item.product.price) }}ج</td>
             </tr>
           </tbody>
         </v-table>
@@ -417,7 +417,7 @@ export default {
     },
     async order1() {
       const token = localStorage.getItem("token");
-      if (this.CartProduct.length >= 1) {
+      if (this.CartProduct2.length >= 1) {
         const payload2 = {
           product_id: this.CartData.id,
           quantity: this.CartData.quantity,
@@ -438,7 +438,7 @@ export default {
           });
           this.CartDelAll();
           this.delitemAll();
-          localStorage.setItem("todo", JSON.stringify(this.CartProduct));
+          localStorage.setItem("todo", JSON.stringify(this.CartProduct2));
         } catch (err) {
           console.error(err.response?.data || err);
           alert("دخل رقم تليفون صح عشان يتم عمل الطلبيه");
@@ -447,7 +447,7 @@ export default {
     },
     async order2(total) {
       const token = localStorage.getItem("token");
-      if (this.CartProduct.length >= 1) {
+      if (this.CartProduct2.length >= 1) {
         const payload3 = {
           product_id: this.CartData.id,
           quantity: this.CartData.quantity,
@@ -468,7 +468,7 @@ export default {
           });
           this.CartDelAll();
           this.delitemAll();
-          localStorage.setItem("todo", JSON.stringify(this.CartProduct));
+          localStorage.setItem("todo", JSON.stringify(this.CartProduct2));
         } catch (err) {
           console.error(err.response?.data || err);
           alert("دخل رقم تليفون صح عشان يتم عمل الطلبيه");
@@ -490,20 +490,26 @@ export default {
     },
     fun() {
       this.total = [];
-      this.CartProduct.forEach((el) => {
-        let num = Math.ceil(el.price) * el.quantity;
+      this.CartProduct2.forEach((el) => {
+        let num = Math.ceil(el.product.price) * el.quantity;
         this.total.push(num);
       });
     },
   },
+  watch: {
+    CartProduct2(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.fun();
+      }
+    },
+  },
   computed: {
-    ...mapState(CartStore1, ["CartProduct", "CartProduct2"]),
+    ...mapState(CartStore1, ["CartProduct2"]),
     ...mapState(mystore, ["CartData", "domin"]),
   },
   async mounted() {
     window.scroll(0, 0);
     await this.GetCart2();
-    await this.GetCart();
     await this.Cart();
     this.fun();
   },

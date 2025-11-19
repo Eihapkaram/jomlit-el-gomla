@@ -82,7 +82,7 @@ nav {
 import LayOut from "./components/LayOut.vue";
 import QiuckView from "./components/Home/QiuckView.vue";
 import SinVeiw from "./components/Home/SinVeiw.vue";
-
+import { CartStore1 } from "@/store/Cart";
 import { mystore } from "@/store";
 import { mapActions, mapState } from "pinia";
 import { useHead } from "@vueuse/head";
@@ -139,6 +139,7 @@ export default {
     ...mapState(mystore, ["catigory0"]),
   },
   methods: {
+    ...mapActions(CartStore1, ["GetCart2"]),
     ...mapActions(mystore, ["getcatigories", "getNotyfication", "User"]),
     async requestPermissions() {
       try {
@@ -181,6 +182,7 @@ export default {
       this.load = false;
     }, 2000);
     await this.User();
+    await this.GetCart2();
   },
   unmounted() {
     this.User();

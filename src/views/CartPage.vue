@@ -87,7 +87,7 @@
             <th>الإجمالي</th>
           </thead>
           <br />
-          <tr v-for="item in CartProduct" :key="item.id" id="trall">
+          <tr v-for="item in CartProduct2" :key="item.id" id="trall">
             <td>
               <v-row justify="start" id="colditels">
                 <v-divider></v-divider>
@@ -96,7 +96,7 @@
                     id="img"
                     height="100px"
                     width="fit-content"
-                    :src="domin + item.img"
+                    :src="domin + item.product.img"
                     style="border-radius: 10px; border: 1px solid #ccc"
                   />
                 </v-col>
@@ -116,13 +116,13 @@
                   id="detilseproduct"
                 >
                   <span class="text-h6" style="color: #333">{{
-                    item.titel
+                    item.product.titel
                   }}</span>
                 </v-col>
               </v-row>
             </td>
             <v-spacer></v-spacer>
-            <td style="color: #333">{{ Math.ceil(item.price) }}ج</td>
+            <td style="color: #333">{{ Math.ceil(item.product.price) }}ج</td>
             <td>
               <span id="qointcon" style="padding: 4px 8px">
                 <span class="d-flex align-center gap-2">
@@ -144,7 +144,7 @@
                     "
                   />
                   <v-icon
-                    @click="item.quantity++, this.fun()"
+                    @click="increaseQuantity(item), plus(item)"
                     id="plus"
                     color="#228B22"
                     >mdi-plus-circle-outline</v-icon
@@ -154,13 +154,13 @@
             </td>
             <td>
               <span class="text-subtitle-2" style="color: #333">
-                {{ Math.ceil(item.price) * item.quantity }}ج
+                {{ Math.ceil(item.product.price) * item.quantity }}ج
               </span>
             </td>
             <td>
               <v-icon
                 id="remov"
-                @click="this.delitem(item.id), this.fun()"
+                @click="delone(item), fun()"
                 style="position: relative; top: -60px; color: #ff4500"
                 >mdi-delete</v-icon
               >
@@ -236,15 +236,33 @@ export default {
     };
   },
   methods: {
-    ...mapActions(CartStore1, ["GetCart", "delitem", "update"]),
-    muns(item) {
-      if (item.quantity > 1) item.quantity--;
+    ...mapActions(CartStore1, [
+      "GetCart2",
+      "delitem2",
+      "increaseQuantity",
+      "decreaseQuantity",
+    ]),
+    async delone(item) {
+      await this.delitem2(item),this.fun();
+    },
+
+    async muns(item) {
+      let q = item.quantity;
+      if (q == 1) {
+        return;
+      } else {
+        item.quantity--;
+      }
+      await this.decreaseQuantity(item);
+    },
+    plus(item) {
+      item.quantity++, this.fun();
     },
     fun() {
       this.nums = [];
       this.total = [];
-      this.CartProduct.forEach((el) => {
-        const num = Math.ceil(el.price) * el.quantity;
+      this.CartProduct2.forEach((el) => {
+        const num = Math.ceil(el.product.price) * el.quantity;
         this.nums.push(num);
         const my = this.nums.reduce((acc, cur) => acc + cur, 0);
         this.total.push(my);
@@ -252,12 +270,12 @@ export default {
     },
   },
   computed: {
-    ...mapState(CartStore1, ["CartProduct"]),
+    ...mapState(CartStore1, ["CartProduct2"]),
     ...mapState(mystore, ["domin", "userRole"]),
   },
   async mounted() {
     window.scroll(0, 0);
-    await this.GetCart();
+    await this.GetCart2();
     await this.fun();
   },
 };
