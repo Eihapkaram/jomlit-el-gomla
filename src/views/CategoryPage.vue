@@ -180,8 +180,7 @@ export default {
     async Add(pro) {
       if (localStorage.getItem("token")) {
         await this.Additem2(pro);
-        await this.Additem(pro);
-        await this.GetCart();
+        await this.GetCart2();
       }
     },
     funvaled(pro) {

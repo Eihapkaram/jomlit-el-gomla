@@ -52,12 +52,13 @@
               id="big-img"
               loading="lazy"
               alt="image"
-              height="400px"
+              height="fit-content"
               :src="tab ? domin + tab.path : domin + this.SingleProduct.img"
               style="
                 border-radius: 20px;
                 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
                 max-width: 400px;
+                height: fit-content;
               "
             />
             <swiper
@@ -153,7 +154,7 @@
                   class="text-h6 font-weight-bold mt-1"
                   style="color: #c69749"
                 >
-                  السعر: {{ this.SingleProduct.price }} $
+                  السعر: {{ this.SingleProduct.price }} ج.م
                 </span>
                 <span
                   ><strong>التوفر:</strong>
@@ -169,7 +170,8 @@
                   class="my-2 rounded-lg"
                 ></v-progress-linear>
                 <span class="text-red-darken-1"
-                  >باقي فقط {{ this.SingleProduct.stock }} قطعة في
+                  >باقي فقط {{ this.SingleProduct.stock }}
+                  <strong> {{ this.SingleProduct.Counttype }}</strong> في
                   المخزون!</span
                 >
 
@@ -200,7 +202,7 @@
 
                   <span class="mt-2 text-subtitle-1">
                     الإجمالي:
-                    {{ Math.ceil(this.SingleProduct.price) * this.quint }} $
+                    {{ Math.ceil(this.SingleProduct.price) * this.quint }} ج.م
                   </span>
                 </div>
 

@@ -147,9 +147,12 @@
           <v-divider class="my-3"></v-divider>
 
           <!-- أزرار التحكم -->
-          <div class="d-flex justify-space-between align-center">
+          <div
+            style="display: flex; flex-flow: column; gap: 15px"
+            class="d-flex justify-space-between align-center"
+          >
             <div>
-              <strong>الإجمالي:</strong>
+              <strong>الإجمالي: </strong>
               <span class="text-primary"
                 >{{ Math.floor(order.total_price) }} جنيه</span
               >
@@ -189,6 +192,7 @@
                 <v-btn
                   v-show="order.approval_status !== 'approved'"
                   color="red"
+                  style="margin-inline: 10px"
                   variant="tonal"
                   size="small"
                   @click="

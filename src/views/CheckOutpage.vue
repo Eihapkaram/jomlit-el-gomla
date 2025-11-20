@@ -570,7 +570,7 @@ export default {
     direction: rtl;
     top: 20px;
     width: 80%;
-    left: -35px;
+    left: -10px;
     position: relative;
   }
   #detilsechuck {
@@ -578,6 +578,7 @@ export default {
   }
   #col2 {
     position: relative;
+    left: -20px;
   }
   #continuebtn {
     position: relative;

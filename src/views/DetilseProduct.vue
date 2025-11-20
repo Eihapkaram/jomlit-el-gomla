@@ -136,7 +136,8 @@
                   v-if="this.SingleProduct.stock >= 1"
                 >
                   <v-icon color="green">mdi-clock-outline</v-icon>
-                  أسرع بالشراء! متبقي {{ this.SingleProduct.stock }} فقط
+                  أسرع بالشراء! متبقي {{ this.SingleProduct.stock }}
+                  <strong> {{ this.SingleProduct.Counttype }}</strong>
                   بالمخزون
                 </span>
                 <span

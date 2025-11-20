@@ -380,6 +380,10 @@ export default {
     position: relative;
     left: 25px;
   }
+  .text-h6 {
+    position: relative;
+    top: -80px;
+  }
   #header {
     width: 90%;
     position: relative;
