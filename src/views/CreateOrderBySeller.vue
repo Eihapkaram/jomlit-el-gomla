@@ -343,7 +343,10 @@ export default {
       Object.entries(this.form).forEach(([key, value]) => {
         formData.append(key, value || "");
       });
-      formData.append("price", this.total || "");
+      formData.append(
+        "total_price",
+        this.total.reduce((a, b) => a + b, 0)
+      );
 
       try {
         if (this.CartProduct2.length) {
@@ -363,7 +366,7 @@ export default {
         }
       } catch (err) {
         console.error(err.response?.data || err);
-        alert("تأكد من إدخال رقم الهاتف بشكل صحيح");
+        alert("تأكد من  ادخال البيانات  بشكل صحيح");
       }
     },
     fun() {
