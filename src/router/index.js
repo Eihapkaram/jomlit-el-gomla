@@ -167,7 +167,6 @@ const router = createRouter({
 
 router.onError((error) => {
   console.error("Router Error:", error);
-  window.location.reload();
 });
 
 // Example: Auth Guard
