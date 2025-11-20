@@ -199,43 +199,44 @@ export default {
         this.Emitter.emit("sin", textem1);
       }
     },
-  setup() {
-    return { modules: [Autoplay] };
-  },
-  computed: {
-    ...mapState(mystore, ["searchCatigoryby", "catigoryProducts1", "domin"]),
-    displayedCategories() {
-      return this.showAll
-        ? this.searchCatigoryby[0].categories
-        : this.searchCatigoryby[0].categories.slice(0, 6);
+    setup() {
+      return { modules: [Autoplay] };
     },
-  },
-  async mounted() {
-    await this.getCatigoryProduct1("الاكثر");
-    await this.searchCatigorybyname(this.$route.params.catigory);
-    window.scroll(0, 0);
-    this.load = true;
-
-    setTimeout(() => {
-      this.load = false;
-    }, 500);
-
-    document.title = `${this.$route.params.catigory} | جملة الجملة`;
-
-    let desc = document.querySelector('meta[name="description"]');
-    if (desc)
-      desc.setAttribute(
-        "content",
-        `منتجات قسم ${this.$route.params.catigory} بالجملة من السوق المصري.`
-      );
-  },
-  watch: {
-    $route() {
+    computed: {
+      ...mapState(mystore, ["searchCatigoryby", "catigoryProducts1", "domin"]),
+      displayedCategories() {
+        return this.showAll
+          ? this.searchCatigoryby[0].categories
+          : this.searchCatigoryby[0].categories.slice(0, 6);
+      },
+    },
+    async mounted() {
+      await this.getCatigoryProduct1("الاكثر");
+      await this.searchCatigorybyname(this.$route.params.catigory);
+      window.scroll(0, 0);
       this.load = true;
+
       setTimeout(() => {
-        this.searchCatigorybyname(this.$route.params.catigory);
         this.load = false;
       }, 500);
+
+      document.title = `${this.$route.params.catigory} | جملة الجملة`;
+
+      let desc = document.querySelector('meta[name="description"]');
+      if (desc)
+        desc.setAttribute(
+          "content",
+          `منتجات قسم ${this.$route.params.catigory} بالجملة من السوق المصري.`
+        );
+    },
+    watch: {
+      $route() {
+        this.load = true;
+        setTimeout(() => {
+          this.searchCatigorybyname(this.$route.params.catigory);
+          this.load = false;
+        }, 500);
+      },
     },
   },
 };
