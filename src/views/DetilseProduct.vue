@@ -9,6 +9,26 @@
         <!-- صور المنتج -->
         <v-col id="c1" cols="12" lg="6" md="6" sm="12">
           <div class="text-center">
+            <div
+              v-if="this.SingleProduct.stock < 1"
+              style="
+                position: absolute;
+                top: 300px;
+                left: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                z-index: 5;
+                width: 100%;
+                height: 50px;
+                background-color: lightcoral;
+              "
+            >
+              <h3 style="color: red; font-size: bold; position: relative">
+                المنتج غير متوفر حاليا
+              </h3>
+            </div>
             <img
               id="big-img"
               :src="tab ? domin + tab.path : domin + this.SingleProduct.img"
@@ -61,7 +81,6 @@
                 >
                 {{ this.SingleProduct.titel }}
               </v-card-title>
-
               <div class="d-flex align-center mb-2">
                 <v-rating
                   v-model="this.SingleProduct.votes"
@@ -112,12 +131,26 @@
                   {{ this.SingleProduct.availabilityStatus }}</span
                 >
 
-                <span class="mt-2 text-success">
+                <span
+                  class="mt-2 text-success"
+                  v-if="this.SingleProduct.stock >= 1"
+                >
                   <v-icon color="green">mdi-clock-outline</v-icon>
                   أسرع بالشراء! متبقي {{ this.SingleProduct.stock }} فقط
                   بالمخزون
                 </span>
+                <span
+                  color="red"
+                  style="display: flex"
+                  class="mt-2 text-denger"
+                  v-if="this.SingleProduct.stock < 1"
+                >
+                  <v-icon color="red">mdi-clock-outline</v-icon>
 
+                  <h3 style="color: red; font-size: bold">
+                    المنتج غير متوفر حاليا
+                  </h3>
+                </span>
                 <v-progress-linear
                   color="green"
                   height="8"
@@ -371,16 +404,23 @@ export default {
     funvaled(pro) {
       if (localStorage.getItem("token")) {
         this.Add(pro);
+        this.funvaled2(pro);
       } else {
         let textem = "عشان تضيف منتج  ف العربة لازم تسجل دخول الأول";
         this.Emitter.emit("sin", textem);
+      }
+    },
+    funvaled2(pro) {
+      if (pro.stock < 1) {
+        let textem1 = "المنتج غير متوفر حاليا";
+        this.Emitter.emit("sin", textem1);
       }
     },
     funvaledcom(id) {
       if (localStorage.getItem("token")) {
         this.Addrev(id);
       } else {
-        let textem = "عشان تضيف منتج  ف العربة لازم تسجل دخول الأول";
+        let textem = "عشان تضيف مراجعه علي  منتج لازم تسجل دخول الأول";
         this.Emitter.emit("sin", textem);
       }
     },

@@ -83,9 +83,16 @@ export default {
     funvaled(pro) {
       if (localStorage.getItem("token")) {
         this.Add(pro);
+        this.funvaled2(pro);
       } else {
         let textem = "عشان تضيف منتج  ف العربة لازم تسجل دخول الأول";
         this.Emitter.emit("sin", textem);
+      }
+    },
+    funvaled2(pro) {
+      if (pro.stock < 1) {
+        let textem1 = "المنتج غير متوفر حاليا";
+        this.Emitter.emit("sin", textem1);
       }
     },
     goToCategory(id) {

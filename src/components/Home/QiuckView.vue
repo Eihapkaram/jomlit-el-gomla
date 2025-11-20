@@ -28,6 +28,26 @@
         <!-- صور المنتج -->
         <v-col cols="12" lg="6" md="6" sm="12">
           <div class="text-center">
+            <div
+              v-if="this.SingleProduct.stock < 1"
+              style="
+                position: absolute;
+                top: 200px;
+                left: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                z-index: 5;
+                width: 100%;
+                height: 50px;
+                background-color: lightcoral;
+              "
+            >
+              <h3 style="color: red; font-size: bold; position: relative">
+                المنتج غير متوفر حاليا
+              </h3>
+            </div>
             <img
               id="big-img"
               loading="lazy"
@@ -498,9 +518,16 @@ export default {
     funvaled(pro) {
       if (localStorage.getItem("token")) {
         this.Add(pro);
+        this.funvaled2(pro);
       } else {
         let textem = "عشان تضيف منتج  ف العربة لازم تسجل دخول الأول";
         this.Emitter.emit("sin", textem);
+      }
+    },
+    funvaled2(pro) {
+      if (pro.stock < 1) {
+        let textem1 = "المنتج غير متوفر حاليا";
+        this.Emitter.emit("sin", textem1);
       }
     },
     Addtolist(item) {

@@ -15,11 +15,27 @@
       <div class="grid">
         <div v-for="pro in all.slice(0, 6)" :key="pro.id" class="product-card">
           <div id="parantimg1" class="img-wrapper">
+            <div
+              v-if="pro.stock < 1"
+              style="
+                position: absolute;
+                top: 100px;
+                left: 0;
+                align-content: center;
+                z-index: 5;
+                width: 100%;
+                height: fit-content;
+                background-color: lightcoral;
+              "
+            >
+              <h3 style="color: red; font-size: bold; position: relative">
+                المنتج غير متوفر حاليا
+              </h3>
+            </div>
             <v-btn
               @click="this.Emitter.emit('dilog', pro)"
               rounded
               variant="outliened"
-              loading="lazy"
               id="quick"
               ripple
               >نظره سريعه</v-btn
@@ -49,10 +65,12 @@
 
           <div class="info">
             <h3 class="title">{{ pro.titel }}</h3>
+
             <div class="price-row">
               <span class="price">{{ Math.floor(pro.price) }} ج.م</span>
             </div>
             <p class="brand">العلامة التجارية: {{ pro.brand }}</p>
+            <!-- الشريط الأحمر فقط -->
 
             <v-rating
               v-model="pro.votes"
@@ -140,11 +158,19 @@ export default {
     funvaled(pro) {
       if (localStorage.getItem("token")) {
         this.Add(pro);
+        this.funvaled2(pro);
       } else {
         let textem = "عشان تضيف منتج  ف العربة لازم تسجل دخول الأول";
         this.Emitter.emit("sin", textem);
       }
     },
+    funvaled2(pro) {
+      if (pro.stock < 1) {
+        let textem1 = "المنتج غير متوفر حاليا";
+        this.Emitter.emit("sin", textem1);
+      }
+    },
+
     count(url, price) {
       this.count = price / url;
     },

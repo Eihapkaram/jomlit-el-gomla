@@ -23,6 +23,7 @@
 
       <v-card-actions class="justify-center">
         <v-btn
+          v-if="!close"
           ripple
           elevation="4"
           size="large"
@@ -40,6 +41,23 @@
           "
         >
           🛍️ سجل دلوقتي
+        </v-btn>
+        <v-btn
+          v-if="close"
+          ripple
+          elevation="4"
+          size="large"
+          style="
+            background-color: #e53935;
+            color: white;
+            border-radius: 12px;
+            font-weight: bold;
+            padding-inline: 25px;
+            letter-spacing: 0.5px;
+          "
+          @click="this.diloge = false"
+        >
+          اغلاق
         </v-btn>
       </v-card-actions>
 
@@ -97,6 +115,7 @@ export default {
       diloge: false,
       loading: "",
       text: "",
+      close: false,
     };
   },
   computed: { ...mapState(mystore, ["SingleProduct", "domin"]) },
@@ -109,6 +128,9 @@ export default {
     this.Emitter.on("sin", (data) => {
       this.diloge = true;
       this.text = data;
+      if (localStorage.getItem("token")) {
+        this.close = true;
+      }
     });
     window.scroll(0, 0);
   },
