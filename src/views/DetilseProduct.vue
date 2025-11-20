@@ -230,6 +230,18 @@
             </v-card-title>
 
             <v-list-item style="width: 100%">
+              <span
+                style="display: flex"
+                class="mt-2 text-denger"
+                v-if="this.Reviwes.length < 1"
+              >
+                <h3 style="color: black; font-size: bold">
+                  لا تتوفر مراجعات لهذا المنتج
+                  <v-icon color="amber" size="26"
+                    >mdi-comment-multiple-outline</v-icon
+                  >
+                </h3>
+              </span>
               <transition-group name="fade" tag="div" style="width: 100%">
                 <v-card
                   v-for="(rev, i) in this.Reviwes"
