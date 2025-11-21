@@ -511,7 +511,7 @@ export default {
 #my-galleryimg {
   width: 130px;
   height: fit-content;
-  max-height: 200px;
+  max-height: 190px;
 }
 #tabslide {
   width: 500px;
