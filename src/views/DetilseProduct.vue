@@ -128,7 +128,11 @@
 
                 <span v-if="this.SingleProduct.stock >= 1"
                   ><v-icon color="green">mdi-check-decagram</v-icon> الحالة:
-                  {{ this.SingleProduct.availabilityStatus ? this.SingleProduct.availabilityStatus:"متوفر" }}</span
+                  {{
+                    this.SingleProduct.availabilityStatus
+                      ? this.SingleProduct.availabilityStatus
+                      : "متوفر"
+                  }}</span
                 >
                 <span
                   color="red"
@@ -502,13 +506,17 @@ export default {
 .mySwiper {
   position: relative;
   left: -120px;
+  margin-bottom: 50px;
 }
 #my-galleryimg {
   width: 130px;
   height: fit-content;
+  max-height: 200px;
 }
 #tabslide {
   width: 500px;
+  position: relative;
+  margin-bottom: 5px;
 }
 .food-card {
   background: linear-gradient(160deg, #ffffff, #f8fdf8);
