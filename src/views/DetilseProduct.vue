@@ -730,10 +730,12 @@ export default {
     position: relative;
     left: -80px;
     width: 400px;
-    margin-bottom: 30px;
+    margin-bottom: 60px;
   }
   #my-galleryimg {
     width: 100px;
+    height: fit-content;
+    max-height: 150px;
   }
   #btnadd {
     border-radius: 30px;
@@ -812,6 +814,8 @@ export default {
   }
   #my-galleryimg {
     width: 80px;
+    height: fit-content;
+    max-height: 150px;
   }
   #btnadd {
     border-radius: 30px;
