@@ -156,10 +156,26 @@
                 >
                   السعر: {{ this.SingleProduct.price }} ج.م
                 </span>
-                <span
-                  ><strong>التوفر:</strong>
-                  {{ this.SingleProduct.availabilityStatus }}</span
+                <span v-if="this.SingleProduct.stock >= 1">
+                  <v-icon color="green">mdi-check-decagram</v-icon> الحالة :
+                  {{
+                    this.SingleProduct.availabilityStatus
+                      ? this.SingleProduct.availabilityStatus
+                      : "متوفر"
+                  }}</span
                 >
+                <span
+                  color="red"
+                  style="display: flex"
+                  class="mt-2 text-denger"
+                  v-if="this.SingleProduct.stock < 1"
+                >
+                  <v-icon color="red">mdi-clock-outline</v-icon>الحالة :
+
+                  <h3 style="color: red; font-size: bold">
+                    المنتج غير متوفر حاليا
+                  </h3>
+                </span>
 
                 <v-progress-linear
                   color="amber"

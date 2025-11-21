@@ -20,6 +20,7 @@ import "jquery";
 window.jQuery = jQuery;
 import { createPinia } from "pinia";
 import "@mdi/font/css/materialdesignicons.css";
+import "./off";
 // core version + navigation, pagination modules:
 import Swiper from "swiper";
 import { Navigation, Pagination, Scrollbar } from "swiper/modules";
