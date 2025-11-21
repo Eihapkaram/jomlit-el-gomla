@@ -50,11 +50,7 @@
                     params: { catigory: pro.name },
                   })
                 "
-                :src="
-                  `https://res.cloudinary.com/diepcc0jl/image/fetch/f_auto,q_auto/` +
-                  domin +
-                  pro.img
-                "
+                :src="domin + pro.img"
                 :alt="pro.name"
                 loading="lazy"
               />

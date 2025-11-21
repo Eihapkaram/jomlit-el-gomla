@@ -47,7 +47,7 @@
               }}</v-icon>
               <v-spacer></v-spacer>
             </button>
-            <span id="availbel" class="d-flex">{{ pro.stock }}</span>
+            <span id="availbel" class="d-flex">%{{ pro.discount }}</span>
           </v-row>
         </div>
 

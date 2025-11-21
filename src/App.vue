@@ -140,7 +140,12 @@ export default {
   },
   methods: {
     ...mapActions(CartStore1, ["GetCart2"]),
-    ...mapActions(mystore, ["getcatigories", "getNotyfication", "User"]),
+    ...mapActions(mystore, [
+      "getcatigories",
+      "getNotyfication",
+      "User",
+      "Userinfo",
+    ]),
     async requestPermissions() {
       try {
         // ✅ 1. صلاحية الموقع
@@ -183,6 +188,7 @@ export default {
     }, 2000);
     await this.User();
     await this.GetCart2();
+    await this.Userinfo();
   },
   unmounted() {
     this.User();
