@@ -21,6 +21,9 @@
           alt="banner"
           loading="lazy"
           :src="domin + item.banner"
+          @click="
+            $router.push({ name: 'derilse', params: { idparam: item.id } })
+          "
         />
       </swiper-slide>
     </swiper>
