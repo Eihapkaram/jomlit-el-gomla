@@ -281,7 +281,7 @@
 <style scoped>
 .mySwiper {
   position: relative;
-  left: 100px;
+  left: -50px;
 }
 #my-galleryimg {
   width: 100px;
@@ -417,14 +417,20 @@
 }
 /*/mobile/*/
 @media (max-width: 500px) {
+  .mySwiper {
+    position: relative;
+    left: 10px;
+    padding-inline: 10px;
+  }
   #my-galleryimg {
     width: 50px;
+    left: 0px;
   }
   .v-tab {
     margin: 0px;
   }
   #tabslide {
-    width: 400px;
+    width: 800px;
   }
   #c2 {
     position: relative;
@@ -525,11 +531,12 @@ export default {
   computed: { ...mapState(mystore, ["SingleProduct", "domin"]) },
   methods: {
     ...mapActions(mystore, ["getSingle"]),
-    ...mapActions(CartStore1, ["Additem"]),
+    ...mapActions(CartStore1, ["Additem2"]),
     ...mapActions(ListsStore1, ["AdditemL"]),
     Add(item) {
       this.SingleProduct.quantity = this.quint;
-      this.Additem(item);
+      this.Additem2(item);
+      this.quint = 1;
       window.addtext.style.display = "none";
       this.progrssbtn = true;
     },

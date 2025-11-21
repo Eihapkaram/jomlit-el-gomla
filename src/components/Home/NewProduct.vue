@@ -134,8 +134,8 @@
 
 <script>
 import { ListsStore1 } from "@/store/Lists";
-import { CartStore1 } from "@/store/Cart";
 import { mystore } from "@/store";
+import { CartStore1 } from "@/store/Cart";
 import { mapActions, mapState } from "pinia";
 
 export default {

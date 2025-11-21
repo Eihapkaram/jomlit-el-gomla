@@ -411,11 +411,12 @@ export default {
   },
   methods: {
     ...mapActions(mystore, ["getSingle", "getReviwes"]),
-    ...mapActions(CartStore1, ["Additem"]),
+    ...mapActions(CartStore1, ["Additem2"]),
     ...mapActions(ListsStore1, ["AdditemL"]),
     Add(item) {
       this.SingleProduct.quantity = this.quint;
-      this.Additem(item);
+      this.Additem2(item);
+      this.quint = 1;
       window.addtext.style.display = "none";
       this.progrssbtn = true;
     },
