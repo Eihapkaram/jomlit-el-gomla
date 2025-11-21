@@ -730,6 +730,7 @@ export default {
     position: relative;
     left: -80px;
     width: 400px;
+    margin-bottom: 30px;
   }
   #my-galleryimg {
     width: 100px;
@@ -807,6 +808,7 @@ export default {
     position: relative;
     left: -20px;
     width: 350px;
+    margin-bottom: 30px;
   }
   #my-galleryimg {
     width: 80px;
