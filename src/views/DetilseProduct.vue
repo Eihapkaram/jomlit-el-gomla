@@ -9,22 +9,7 @@
         <!-- صور المنتج -->
         <v-col id="c1" cols="12" lg="6" md="6" sm="12">
           <div class="text-center">
-            <div
-              v-if="this.SingleProduct.stock < 1"
-              style="
-                position: absolute;
-                top: 300px;
-                left: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                z-index: 5;
-                width: 100%;
-                height: 50px;
-                background-color: lightcoral;
-              "
-            >
+            <div v-if="this.SingleProduct.stock < 1" id="avol">
               <h3 style="color: red; font-size: bold; position: relative">
                 المنتج غير متوفر حاليا
               </h3>
@@ -701,6 +686,19 @@ export default {
 #revews::-webkit-scrollbar-thumb:hover {
   background-color: #888;
 }
+#avol {
+  position: absolute;
+  top: 300px;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 5;
+  width: 100%;
+  height: 50px;
+  background-color: lightcoral;
+}
 
 /* Tablet */
 @media (max-width: 991px) {
@@ -782,6 +780,19 @@ export default {
   #tabslide {
     width: 400px;
   }
+  #avol {
+    position: absolute;
+    top: 160px;
+    left: -40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 5;
+    width: 100%;
+    height: 50px;
+    background-color: lightcoral;
+  }
 }
 /* Mobile */
 @media (max-width: 500px) {
@@ -794,6 +805,19 @@ export default {
     position: relative;
     left: -50px;
     z-index: 3;
+  }
+  #avol {
+    position: absolute;
+    top: 147px;
+    left: -27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 5;
+    width: 100%;
+    height: 50px;
+    background-color: lightcoral;
   }
   #c2 {
     position: relative;

@@ -402,7 +402,7 @@
         <v-row justify="end">
           <v-icon
             id="closecart"
-            style="cursor: pointer; z-index: 10; color: #555"
+            style="cursor: pointer; z-index: 10; color: #555; position: fixed"
             @click="this.drawerCart = false"
           >
             mdi-close
@@ -928,7 +928,7 @@ export default {
     ...mapActions(mystore, ["logoutin"]),
 
     async delone(item) {
-      await this.delitem2(item),this.fun();
+      await this.delitem2(item), this.fun();
     },
 
     async muns(item) {
@@ -938,7 +938,7 @@ export default {
       } else {
         item.quantity--;
       }
-      
+
       await this.decreaseQuantity(item);
     },
     plus(item) {
@@ -1458,7 +1458,7 @@ div.v-table__wrapper {
     cursor: pointer;
   }
   #closecart {
-    left: -10px;
+    left: 350px;
   }
 
   #closeitemcart {

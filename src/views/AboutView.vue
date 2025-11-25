@@ -47,14 +47,29 @@
               }}</v-icon>
               <v-spacer></v-spacer>
             </button>
-            <span id="availbel" class="d-flex">%{{ pro.discount }}</span>
+            <span v-if="pro.discount > 0" id="availbel" class="d-flex"
+              >%{{ pro.discount }}</span
+            >
           </v-row>
         </div>
 
         <div class="info">
           <h3 class="title">{{ pro.titel }}</h3>
           <div class="price-row">
-            <span class="price">{{ Math.floor(pro.price) }} ج.م</span>
+            <span v-if="pro.discount != 0">بدلا من </span>
+            <span
+              v-if="pro.discount != 0"
+              style="text-decoration: line-through"
+              class=""
+              >{{
+                Math.floor(pro.price) +
+                (pro.discount / 100) * Math.floor(pro.price)
+              }}
+              ج.م</span
+            >
+
+            <span v-if="pro.discount != 0">بسعر :</span
+            ><span class="price">{{ Math.floor(pro.price) }} ج.م</span>
           </div>
           <p class="brand">العلامة التجارية: {{ pro.brand }}</p>
 

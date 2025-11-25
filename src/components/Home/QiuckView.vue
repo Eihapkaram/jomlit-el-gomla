@@ -15,6 +15,7 @@
           background: linear-gradient(45deg, #1a1a1a, #000);
           align-self: flex-end;
           z-index: 5;
+          position: fixed;
           border-radius: 50%;
           padding: 8px;
           margin: 10px;
@@ -142,14 +143,11 @@
                   {{ this.SingleProduct.dimensions.height }} / العمق
                   {{ this.SingleProduct.dimensions.depth }}
                 </span>
-                <span class="text-red mt-1"
-                  ><strong>سياسة الإرجاع:</strong>
-                  {{ this.SingleProduct.returnPolicy }}</span
-                >
-                <span
-                  ><strong>رمز المنتج (SKU):</strong>
-                  {{ this.SingleProduct.sku }}</span
-                >
+
+                <span style="color: #558b2f" class="mt-2">
+                  <v-icon color="green">mdi-refresh</v-icon>
+                  سياسة الإرجاع: {{ this.SingleProduct.url }}
+                </span>
                 <span
                   class="text-h6 font-weight-bold mt-1"
                   style="color: #c69749"

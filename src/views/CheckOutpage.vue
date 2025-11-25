@@ -578,7 +578,7 @@ export default {
   }
   #col2 {
     position: relative;
-    left: -20px;
+    left: -10px;
   }
   #continuebtn {
     position: relative;

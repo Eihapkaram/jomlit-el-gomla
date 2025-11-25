@@ -189,11 +189,27 @@
 
       <!-- 🧾 نافذة الطلبات -->
       <v-dialog v-model="showOrdersDialog" max-width="900px">
+        <v-icon
+          style="
+            color: white;
+            background: linear-gradient(45deg, #1a1a1a, #000);
+            align-self: flex-end;
+            z-index: 5;
+            position: fixed;
+            border-radius: 50%;
+            padding: 8px;
+            margin: 10px;
+          "
+          @click="showOrdersDialog = false"
+          id="closepopup"
+          >mdi-close-circle-outline</v-icon
+        >
         <v-card>
           <v-card-title>
             <v-icon start>mdi-cart-check</v-icon>
             طلبات العميل
           </v-card-title>
+
           <v-divider />
           <v-card-text>
             <v-alert v-if="!orders.length" type="info" text>
