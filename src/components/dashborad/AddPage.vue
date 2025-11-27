@@ -40,6 +40,7 @@ import axios from "axios";
 import { mystore } from "@/store";
 import { mapState } from "pinia";
 export default {
+  inject: ["Emitter"],
   data() {
     return {
       active: false,
@@ -85,6 +86,10 @@ export default {
           }
         );
         console.log("تم اضافه الصفحه ", res.data);
+        let textem2 = "تم اضافه الصفحه";
+        let act = true;
+        let op = { textem2, act };
+        this.Emitter.emit("cart", op);
       } catch (err) {
         console.error(err.response?.data || err);
       }

@@ -23,7 +23,7 @@
             1024: { slidesPerView: 3, spaceBetween: 20 },
           }"
         >
-          <swiper-slide v-for="(item, i) in catigoryProducts1" :key="i">
+          <swiper-slide v-for="(item, i) in top" :key="i">
             <div class="category-card">
               <div class="card-horizontal">
                 <div class="image-wrapper">
@@ -67,11 +67,11 @@ export default {
     return {};
   },
   computed: {
-    ...mapState(mystore, ["catigoryProducts1", "domin"]),
+    ...mapState(mystore, ["catigoryProducts1", "domin", "top"]),
     ...mapState(CartStore1, ["CartProduct2"]),
   },
   methods: {
-    ...mapActions(mystore, ["getCatigoryProduct1"]),
+    ...mapActions(mystore, ["getCatigoryProduct1", "topall"]),
     ...mapActions(CartStore1, ["Additem", "Additem2", "GetCart"]),
     async Add(pro) {
       if (localStorage.getItem("token")) {
@@ -85,6 +85,10 @@ export default {
         this.funvaled2(pro);
         if (pro.stock >= 1) {
           this.Add(pro);
+          let textem2 = "تم اضافه المنتج ف العربة";
+          let act = true;
+          let op = { textem2, act };
+          this.Emitter.emit("cart", op);
         }
       } else {
         let textem = "عشان تضيف منتج  ف العربة لازم تسجل دخول الأول";
@@ -103,6 +107,7 @@ export default {
   },
   async mounted() {
     await this.getCatigoryProduct1("مميز");
+    await this.topall();
   },
   setup() {
     return { modules: [Autoplay] };

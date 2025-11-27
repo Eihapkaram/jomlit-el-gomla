@@ -161,6 +161,10 @@ export default {
     funvaled(pro) {
       if (localStorage.getItem("token")) {
         this.Add(pro);
+        let textem2 = "تم اضافه المنتج ف العربة";
+        let act = true;
+        let op = { textem2, act };
+        this.Emitter.emit("cart", op);
         this.funvaled2(pro);
       } else {
         let textem = "عشان تضيف منتج  ف العربة لازم تسجل دخول الأول";

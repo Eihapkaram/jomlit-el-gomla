@@ -5,6 +5,7 @@
   /></lay-out>
   <QiuckView />
   <SinVeiw />
+  <CartVeiw />
 </template>
 
 <style lang="scss">
@@ -82,13 +83,14 @@ nav {
 import LayOut from "./components/LayOut.vue";
 import QiuckView from "./components/Home/QiuckView.vue";
 import SinVeiw from "./components/Home/SinVeiw.vue";
+import CartVeiw from "./components/Home/CartVeiw.vue";
 import { CartStore1 } from "@/store/Cart";
 import { mystore } from "@/store";
 import { mapActions, mapState } from "pinia";
 import { useHead } from "@vueuse/head";
 import { computed, reactive } from "vue";
 export default {
-  components: { LayOut, QiuckView, SinVeiw },
+  components: { LayOut, QiuckView, SinVeiw, CartVeiw },
   data() {
     return {
       load: "",

@@ -10,6 +10,8 @@ export const mystore = defineStore("mystore", {
   state: () => ({
     result: [],
     all: "",
+    top: "",
+    topsoldproducts: "",
     searchrsult: "",
     SingleProduct: "",
     searchCatigoryby: "",
@@ -38,7 +40,7 @@ export const mystore = defineStore("mystore", {
     userorders: "",
     CartData: "",
     CartData2: "",
-    domin: "https://web-production-a6d4.up.railway.app/api/",
+    domin: "https://web-production-273ed.up.railway.app/api/",
   }),
 
   actions: {
@@ -63,6 +65,18 @@ export const mystore = defineStore("mystore", {
       this.all = data.products;
     },
 
+    async topall() {
+      const res = await fetch(`${this.domin}products/most-ordered`);
+      const data = await res.json();
+      this.top = data.products;
+    },
+
+    async topsold(id) {
+      const res = await fetch(`${this.domin}products/top-sold/${id}`);
+      const data = await res.json();
+      this.topsoldproducts = data.products;
+      console.log(this.topsoldproducts);
+    },
     async getSingle(id) {
       const res = await fetch(`${this.domin}show/${id}`);
       const data = await res.json();

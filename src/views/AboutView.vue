@@ -156,6 +156,10 @@ export default {
         this.funvaled2(pro);
         if (pro.stock >= 1) {
           this.Add(pro);
+           let textem2 = "تم اضافه المنتج ف العربة";
+          let act = true;
+          let op={textem2,act};
+          this.Emitter.emit("cart", op);
         }
       } else {
         let textem = "عشان تضيف منتج  ف العربة لازم تسجل دخول الأول";

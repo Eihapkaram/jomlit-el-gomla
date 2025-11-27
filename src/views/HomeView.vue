@@ -19,6 +19,7 @@ import TopsSc from "@/components/Home/TopsSc.vue";
 
 // @ is an alias to /src
 export default {
+  inject: ["Emitter"],
   name: "HomeView",
   components: {
     TopCatogery,

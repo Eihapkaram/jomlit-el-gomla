@@ -535,6 +535,10 @@ export default {
       this.SingleProduct.quantity = this.quint;
       this.Additem2(item);
       this.quint = 1;
+      let textem2 = "تم اضافه المنتج ف العربة";
+      let act = true;
+      let op = { textem2, act };
+      this.Emitter.emit("cart", op);
       window.addtext.style.display = "none";
       this.progrssbtn = true;
     },

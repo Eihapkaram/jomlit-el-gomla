@@ -270,7 +270,7 @@ export default {
       name: "",
       phone: "",
       showPhoneForm: true,
-      active: false,
+
       latitude: null,
       longitude: null,
       showLocationAlert: false,
@@ -281,6 +281,7 @@ export default {
       front_id_image: null,
       back_id_image: null,
       showimg: "",
+      active: false,
       massage: "",
       snackbar: false,
     };
@@ -329,12 +330,17 @@ export default {
       formData.append("role", this.role);
       if (this.role === "seller") {
         formData.append("wallet_number", this.wallet_number);
-        if (this.front_id_image) formData.append("front_id_image", this.front_id_image);
-        if (this.back_id_image) formData.append("back_id_image", this.back_id_image);
+        if (this.front_id_image)
+          formData.append("front_id_image", this.front_id_image);
+        if (this.back_id_image)
+          formData.append("back_id_image", this.back_id_image);
       }
       try {
         const res = await axios.post(`${this.domin}register`, formData, {
-          headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
         });
         this.massage = "تم التسجيل بنجاح";
         this.snackbar = true;
@@ -342,7 +348,7 @@ export default {
         this.$router.push("/");
       } catch (err) {
         console.error(err.response?.data || err);
-        this.massage = err.response?.data?.message || "حدث خطأ";
+        this.massage = "حدث خطاء ما حاول تسجيل من مكان تاني";
         this.snackbar = true;
         this.active = false;
       }
@@ -365,12 +371,17 @@ export default {
       formData.append("role", this.role);
       if (this.role === "seller") {
         formData.append("wallet_number", this.wallet_number);
-        if (this.front_id_image) formData.append("front_id_image", this.front_id_image);
-        if (this.back_id_image) formData.append("back_id_image", this.back_id_image);
+        if (this.front_id_image)
+          formData.append("front_id_image", this.front_id_image);
+        if (this.back_id_image)
+          formData.append("back_id_image", this.back_id_image);
       }
       try {
         const res = await axios.post(`${this.domin}register-phone`, formData, {
-          headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" },
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
         });
         this.massage = "تم التسجيل بنجاح";
         this.snackbar = true;
@@ -378,7 +389,7 @@ export default {
         this.$router.push("/");
       } catch (err) {
         console.error(err.response?.data || err);
-        this.massage = err.response?.data?.message || "حدث خطأ";
+        this.massage = "حدث خطاء ما حاول تسجيل من مكان تاني";
         this.snackbar = true;
         this.active = false;
       }

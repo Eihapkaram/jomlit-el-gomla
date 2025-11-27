@@ -112,7 +112,7 @@
                 1024: { slidesPerView: 3, spaceBetween: 20 },
               }"
             >
-              <swiper-slide v-for="(item, i) in catigoryProducts1" :key="i">
+              <swiper-slide v-for="(item, i) in topsoldproducts" :key="i">
                 <div class="category-card">
                   <div class="card-horizontal">
                     <div class="image-wrapper">
@@ -164,7 +164,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(mystore, ["searchCatigorybyname", "getCatigoryProduct1"]),
+    ...mapActions(mystore, [
+      "searchCatigorybyname",
+      "getCatigoryProduct1",
+      "topsold",
+    ]),
     ...mapActions(CartStore1, ["Additem", "Additem2", "GetCart"]),
     ...mapActions(ListsStore1, ["AdditemL", "updateL"]),
     toggleShowMore() {
@@ -185,6 +189,10 @@ export default {
         this.funvaled2(pro);
         if (pro.stock >= 1) {
           this.Add(pro);
+           let textem2 = "تم اضافه المنتج ف العربة";
+          let act = true;
+          let op={textem2,act};
+          this.Emitter.emit("cart", op);
         }
       } else {
         let textem = "عشان تضيف منتج  ف العربة لازم تسجل دخول الأول";
@@ -202,7 +210,12 @@ export default {
     return { modules: [Autoplay] };
   },
   computed: {
-    ...mapState(mystore, ["searchCatigoryby", "catigoryProducts1", "domin"]),
+    ...mapState(mystore, [
+      "searchCatigoryby",
+      "catigoryProducts1",
+      "domin",
+      "topsoldproducts",
+    ]),
     displayedCategories() {
       return this.showAll
         ? this.searchCatigoryby[0].categories
@@ -211,6 +224,7 @@ export default {
   },
   async mounted() {
     await this.getCatigoryProduct1("الاكثر");
+    this.topsold(this.$route.params.idp);
     await this.searchCatigorybyname(this.$route.params.catigory);
     window.scroll(0, 0);
     this.load = true;

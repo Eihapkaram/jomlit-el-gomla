@@ -20,7 +20,7 @@
                 @click="
                   $router.push({
                     name: 'catigoryPage',
-                    params: { catigory: item.slug },
+                    params: { idp: item.id, catigory: item.slug },
                   })
                 "
                 id="catgoryitem"

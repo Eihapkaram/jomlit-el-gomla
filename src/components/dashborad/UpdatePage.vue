@@ -50,6 +50,7 @@ import { mystore } from "@/store";
 import { mapState } from "pinia";
 
 export default {
+  inject: ["Emitter"],
   data() {
     return {
       active: false,
@@ -99,6 +100,10 @@ export default {
           }
         );
         console.log("✅ تم تعديل الصفحة:", res.data);
+        let textem2 = "تم التعديل ";
+        let act = true;
+        let op = { textem2, act };
+        this.Emitter.emit("cart", op);
       } catch (err) {
         console.error("❌ خطأ أثناء التعديل:", err.response?.data || err);
       } finally {
