@@ -21,7 +21,7 @@
 
       <!-- الأقسام: صورة + اسم فقط -->
       <v-container fluid id="topcato">
-        <h2 class="section-title">الاصناف</h2>
+        <h2 class="section-title">الاصناف {{ this.$route.params.idp }}</h2>
         <div class="categories-grid">
           <div
             class="category-item"
@@ -189,9 +189,9 @@ export default {
         this.funvaled2(pro);
         if (pro.stock >= 1) {
           this.Add(pro);
-           let textem2 = "تم اضافه المنتج ف العربة";
+          let textem2 = "تم اضافه المنتج ف العربة";
           let act = true;
-          let op={textem2,act};
+          let op = { textem2, act };
           this.Emitter.emit("cart", op);
         }
       } else {
@@ -224,7 +224,7 @@ export default {
   },
   async mounted() {
     await this.getCatigoryProduct1("الاكثر");
-    this.topsold(this.$route.params.idp);
+    this.topsold(this.$route.params.catigory);
     await this.searchCatigorybyname(this.$route.params.catigory);
     window.scroll(0, 0);
     this.load = true;
@@ -247,6 +247,7 @@ export default {
       this.load = true;
       setTimeout(() => {
         this.searchCatigorybyname(this.$route.params.catigory);
+        this.topsold(this.$route.params.catigory);
         this.load = false;
       }, 500);
     },
