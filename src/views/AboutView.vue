@@ -47,7 +47,7 @@
               }}</v-icon>
               <v-spacer></v-spacer>
             </button>
-            <span v-show="pro.discount > 0" id="availbel" class="d-flex"
+            <span v-show="pro.discount > 0" id="availbel"
               >%{{ pro.discount }}</span
             >
           </v-row>
