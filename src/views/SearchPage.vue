@@ -57,7 +57,7 @@
               }}</v-icon>
               <v-spacer></v-spacer>
             </button>
-            <span v-if="pro.discount > 0" id="availbel" class="d-flex"
+            <span v-show="pro.discount > 0" id="availbel" class="d-flex"
               >%{{ pro.discount }}</span
             >
           </v-row>
