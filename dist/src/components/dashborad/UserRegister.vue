@@ -68,7 +68,6 @@
           :items="[
             { text: 'تاجر', value: 'customer' },
             { text: 'مندوب', value: 'seller' },
-            { text: 'مورد', value: 'supplier' },
           ]"
           label="الدور"
           placeholder="اختر الدور"
@@ -186,7 +185,6 @@
           :items="[
             { text: 'تاجر', value: 'customer' },
             { text: 'مندوب', value: 'seller' },
-            { text: 'مورد', value: 'supplier' },
           ]"
           label="الدور"
           placeholder="اختر الدور"

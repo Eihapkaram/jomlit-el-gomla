@@ -3,7 +3,6 @@ import { mystore } from "@/store";
 
 // === Lazy-loaded Pages ===
 const HomeView = () => import("@/views/HomeView.vue");
-const SupplierHome = () => import("/src/views/DashSupplier.vue");
 const AboutView = () => import("@/views/AboutView.vue");
 const DetilseProduct = () => import("@/views/DetilseProduct.vue");
 const CatigoryProduct = () => import("@/views/CatigoryProduct.vue");
@@ -21,7 +20,6 @@ const UserForgetPass = () => import("@/views/UserForgetPass.vue");
 const ResetPassword = () => import("@/views/Resetpassword.vue");
 const DashBoard = () => import("@/views/DashBoard.vue");
 const AboutUs = () => import("@/views/AboutUs.vue");
-const SupplierOrder = () => import("/src/views/SupplierOrders.vue");
 const CustomerService = () => import("@/views/CustomerService.vue");
 const ShippingPolicy = () => import("@/views/ShippingPolicy.vue");
 const PrivacyPolicy = () => import("@/views/PrivacyPolicy.vue");
@@ -30,7 +28,6 @@ const Inquiries = () => import("@/views/Inquiries.vue");
 const FAQ = () => import("@/views/FAQ.vue");
 const ContactUs = () => import("@/views/ContactUs.vue");
 const OffersPage = () => import("@/views/OffersPage.vue");
-const SuppleirOrder = () => import("/src/views/AdminOrderSupplier.vue");
 
 // === Lazy-loaded dashboard components ===
 const LogIn = () => import("@/components/dashborad/LogIn.vue");
@@ -49,7 +46,6 @@ const UsersPage = () => import("@/components/dashborad/UsersPage.vue");
 const UpdateUser = () => import("@/components/dashborad/UpdateUser.vue");
 const ShowOrders = () => import("@/components/dashborad/ShowOrders.vue");
 const Settings = () => import("@/components/dashborad/Settings.vue");
-const SuppleirPage = () => import("@/views/suppliers-page.vue");
 const AdminSendNotification = () =>
   import("@/components/dashborad/AdminSendNotification.vue");
 const QueriesShow = () => import("@/components/dashborad/QueriesShow.vue");
@@ -80,11 +76,6 @@ const routes = [
     name: "catigoryPage",
     component: CategoryPage,
   },
-  {
-    path: "/supplierhome",
-    name: "supplierhome",
-    component: SupplierHome,
-  },
   { path: "/cartpage", name: "CartPage", component: CartPage },
   { path: "/listpage", name: "listpage", component: ListsPage },
   { path: "/checkpage", name: "checkpage", component: CheckOutpage },
@@ -108,7 +99,6 @@ const routes = [
   { path: "/resetpassword", name: "ResetPassword", component: ResetPassword },
   { path: "/register", name: "register", component: UserRegister },
   { path: "/mypayes", name: "mypayes", component: MyPayes },
-  { path: "/supplierorder", name: "SupplierOrder", component: SupplierOrder },
   { path: "/myNotifications", name: "notifications", component: Notifications },
   { path: "/aboutus", name: "AboutUs", component: AboutUs },
   {
@@ -145,9 +135,7 @@ const routes = [
         component: UpdateCategories,
       },
       { path: "pages", name: "pages", component: PagesCom },
-      { path: "ordersuppler", name: "orderSuppler", component: SuppleirOrder },
       { path: "page/add", name: "addpage", component: AddPage },
-      { path: "suppleirpage", name: "Suppleir", component: SuppleirPage },
       { path: "pages/update/:id", name: "updatepage", component: UpdatePage },
       { path: "users", name: "users", component: UsersPage },
       { path: "updateuser/:id", name: "updateuser", component: UpdateUser },
@@ -187,11 +175,6 @@ router.beforeEach((to, from, next) => {
     const auth = mystore();
     const userRole = auth.userRole;
     if (userRole !== "admin") return next("/");
-  }
-  if (to.path === "/") {
-    const auth = mystore();
-    const userRole = auth.userRole;
-    if (userRole == "supplier") return next("/supplierhome");
   }
   next();
 });
